@@ -61,7 +61,9 @@ USE keepr252;
 
 
 -- Keeps:
--- DELETE FROM keeps WHERE name LIKE 'TEST%';
+DELETE FROM keeps WHERE name LIKE 'TEST%';
+-- UPDATE keeps SET userId="vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients" WHERE id = 10;
+SELECT * FROM `keepr252`.`keeps` LIMIT 100;
 -- {
 --     "name": "Cookie Monster",
 --     "description": "Lovable Cookie Dude!",

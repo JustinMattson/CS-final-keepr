@@ -12,14 +12,14 @@ In this checkpoint students will demonstrate a working knowledge of building ful
 
 Keepr is a typical project where some of the basic layouts have been thought up but it's still missing some key components. The basic idea here is to allow users to post items if they are logged in. They can also browse all of the items (aka keeps) that have been posted without having to login. If any user wants to store a reference to any paticular keep they will store it in the `vault` of their choice.
 
-[ ] View keeps without login
-[ ] Post keep requires login
+[+] View keeps without login
+[+] Post keep requires login
 [ ] Keeps saved to vaults
 
 We want to give the users the opportunity to click on the keep icon for any post and have a list of their vaults appear. Selecting the vault should create a reference to that post and the users vault.
 
 [ ] Keep icon prompts authorized user to choose vault
-[ ] Selecting desired vault adds keep to vault (vaulteep)
+[ ] Selecting desired vault adds keep to vault (vaultkeep)
 
 Vaults themselves are relatively simple... They only require a name and a description and will then have a list of posts that are saved within the vault. Think about how you will handle this relationship.
 [ ] Each vault will have ONE userId

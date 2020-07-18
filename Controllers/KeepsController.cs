@@ -45,8 +45,8 @@ namespace Keepr.Controllers
     }
 
     // get by keep by ID may be required to update the counts (keeps and views)
+    // KeepDetails?
     [HttpGet("{id}")]
-    [Authorize]
     public ActionResult<Keep> GetKeepById(int id)
     {
       try
