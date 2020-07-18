@@ -59,11 +59,10 @@ USE keepr252;
 -- DROP TABLE IF EXISTS users;
 
 
-
 -- Keeps:
-DELETE FROM keeps WHERE name LIKE 'TEST%';
+-- DELETE FROM keeps WHERE name LIKE 'TEST%';
 -- UPDATE keeps SET userId="vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients" WHERE id = 10;
-SELECT * FROM `keepr252`.`keeps` LIMIT 100;
+-- SELECT * FROM `keepr252`.`keeps` LIMIT 100;
 -- {
 --     "name": "Cookie Monster",
 --     "description": "Lovable Cookie Dude!",
@@ -91,3 +90,15 @@ SELECT * FROM `keepr252`.`keeps` LIMIT 100;
 --     "shares": 0,
 --     "keeps": 0
 -- }
+
+-- Vaults:
+-- UPDATE vaults SET userId="vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients" WHERE id = 1;
+-- SELECT * FROM `keepr252`.`vaults` LIMIT 100;
+
+
+-- VaultKeeps:
+
+
+-- CleanUp:
+-- DELETE FROM keeps WHERE name LIKE '%KEEP%';
+-- DELETE FROM vaults where name LIKE 'MY%';

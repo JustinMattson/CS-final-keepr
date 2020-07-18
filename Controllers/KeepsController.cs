@@ -77,19 +77,20 @@ namespace Keepr.Controllers
       }
     }
 
+    // KeepToUpdate ktu
     // This method should update keep.views onRouterEnter?
     // This method should update keep.keeps when keep icon clicked
     // This method should update isPrivate bool
     [HttpPut("{id}")]
     [Authorize]
-    public ActionResult<Keep> Edit(int id, [FromBody] Keep keepToUpdate)
+    public ActionResult<Keep> Edit(int id, [FromBody] Keep ktu)
     {
       try
       {
 
-        keepToUpdate.Id = id;
+        ktu.Id = id;
         string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        return Ok(_ks.Edit(keepToUpdate, userId));
+        return Ok(_ks.Edit(ktu, userId));
       }
       catch (Exception e)
       {
@@ -97,7 +98,8 @@ namespace Keepr.Controllers
       }
     }
 
-    // Delete only works if keep is "not private"
+    // Delete only if keep is "not private"
+    // Above comment fails to pass keepr-testing-tool
     [HttpDelete("{id}")]
     [Authorize]
     public ActionResult<string> Delete(int id)
