@@ -92,9 +92,32 @@ USE keepr252;
 -- }
 
 -- Vaults:
--- UPDATE vaults SET userId="vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients" WHERE id = 1;
--- SELECT * FROM `keepr252`.`vaults` LIMIT 100;
-
+UPDATE vaults SET userId="vraY84SbrI@clients" WHERE id = 22;
+SELECT * FROM `keepr252`.`vaults` LIMIT 100;
+-- {
+--     "id": 9,
+--     "userId": "vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients",
+--     "name": "Super Funny Stuff",
+--     "description": "These things make me laugh out loud!"
+-- },
+-- {
+--     "id": 11,
+--     "userId": "vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients",
+--     "name": "Stuff to delete!",
+--     "description": "Please delete this stuff."
+-- },
+-- {
+--     "id": 23,
+--     "userId": "vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients",
+--     "name": "More stuff to delete!",
+--     "description": "Please delete this stuff."
+-- },
+-- {
+--     "id": 28,
+--     "userId": "vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients",
+--     "name": "Funny Stuff",
+--     "description": "These things make me smile!"
+-- }
 
 -- VaultKeeps:
 

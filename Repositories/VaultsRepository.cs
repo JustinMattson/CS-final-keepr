@@ -26,9 +26,9 @@ namespace Keepr.Repositories
     //   return _db.Query<Vault>(sql, new { userId });
     // }
 
-    internal Vault GetVaultById(int id, string userId)
+    internal Vault GetVaultById(int id)
     {
-      string sql = "SELECT * FROM vaults WHERE id = @id && userId = @UserId;";
+      string sql = "SELECT * FROM vaults WHERE id = @id;";
       return _db.QueryFirstOrDefault<Vault>(sql, new { id });
     }
 

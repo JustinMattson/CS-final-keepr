@@ -19,10 +19,10 @@ namespace Keepr.Services
 
     internal Vault GetVaultById(int id, string userId)
     {
-      Vault foundVault = _repo.GetVaultById(id, userId);
+      Vault foundVault = _repo.GetVaultById(id);
       if (foundVault == null || foundVault.UserId != userId)
       {
-        throw new Exception("Invalid Id");
+        throw new Exception("This vault does not belong to you.");
       }
       return foundVault;
     }
