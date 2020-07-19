@@ -81,7 +81,7 @@ namespace Keepr.Services
       {
         return "Keep successfully deleted.";
       }
-      throw new Exception("Public Keeps cannot be deleted!");
+      throw new Exception("Public Keeps cannot be deleted! Says who?");
     }
   }
 }
