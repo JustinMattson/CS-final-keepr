@@ -12,6 +12,7 @@ namespace Keepr.Services
     {
       _repo = repo;
     }
+
     public IEnumerable<Vault> GetVaultsByUser(string userId)
     {
       return _repo.GetVaultsByUser(userId);

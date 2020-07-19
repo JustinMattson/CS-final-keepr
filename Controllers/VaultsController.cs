@@ -20,8 +20,23 @@ namespace Keepr.Controllers
       _vs = vs;
     }
 
-    // NOTE GET ALL does not make sense since vaults are private.
+    // NOTE a basic GET ALL does not make sense since vaults are private, however, in order to get past the HTTP 405, will need to implement a basic get.  This "GetAll" will duplicate GetVaultsByUser functionality.
+    [HttpGet]
+    public ActionResult<IEnumerable<Vault>> Get()
+    {
+      try
+      {
+        string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        return Ok(_vs.GetVaultsByUser(userId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
 
+    // NOTE both this and the basic Get yield the same results with different route.  Need to ask senior which is preferred.
+    // NOTE this path may be unnecessary - ask senior.
     // Get all vaults for authorized user
     [HttpGet("user")]
     public ActionResult<IEnumerable<Vault>> GetVaultsByUser()
@@ -71,9 +86,8 @@ namespace Keepr.Controllers
     {
       try
       {
-
         vtu.Id = id;
-        string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        vtu.UserId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         return Ok(_vs.Edit(vtu));
       }
       catch (Exception e)

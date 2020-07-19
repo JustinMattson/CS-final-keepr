@@ -6,7 +6,7 @@ namespace Keepr.Models
   {
     public int Id { get; set; }
 
-    [Required]
+    // UserId is supplied by the controller.
     public string UserId { get; set; }
 
     [Required]
