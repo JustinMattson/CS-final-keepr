@@ -48,7 +48,7 @@ namespace Keepr.Controllers
       }
     }
 
-
+    // Delete VaultKeep by VaultKeep Id
     [HttpDelete("{id}")]
     public ActionResult<VaultKeep> Delete(int id)
     {

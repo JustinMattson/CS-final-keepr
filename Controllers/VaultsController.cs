@@ -38,21 +38,20 @@ namespace Keepr.Controllers
     }
 
     // NOTE both this and the basic Get yield the same results with different route.  Need to ask senior which is preferred.
-    // NOTE this path may be unnecessary - ask senior.
     // Get all vaults for authorized user
-    [HttpGet("user")]
-    public ActionResult<IEnumerable<Vault>> GetVaultsByUser()
-    {
-      try
-      {
-        string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        return Ok(_vs.GetVaultsByUser(userId));
-      }
-      catch (Exception e)
-      {
-        return BadRequest(e.Message);
-      };
-    }
+    // [HttpGet("user")]
+    // public ActionResult<IEnumerable<Vault>> GetVaultsByUser()
+    // {
+    //   try
+    //   {
+    //     string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+    //     return Ok(_vs.GetVaultsByUser(userId));
+    //   }
+    //   catch (Exception e)
+    //   {
+    //     return BadRequest(e.Message);
+    //   };
+    // }
 
     [HttpGet("{id}")]
     public ActionResult<Vault> GetVaultById(int id)
@@ -82,6 +81,7 @@ namespace Keepr.Controllers
         return BadRequest(e.Message);
       }
     }
+
     [HttpPost]
     public ActionResult<Vault> Post([FromBody] Vault newVault)
     {
