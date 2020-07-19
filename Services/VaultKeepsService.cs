@@ -14,26 +14,26 @@ namespace Keepr.Services
       _repo = repo;
     }
 
-    public IEnumerable<DTOVaultKeep> GetDTOvkByUser(string userId)
+    public IEnumerable<VaultKeep> GetDTOvkByUser(string userId)
     {
       return _repo.GetDTOvkByUser(userId);
     }
 
-    // Get User DTOVaultKeeps by keepId
-    internal IEnumerable<DTOVaultKeep> GetDTOkByUser(int keepId, string userId)
+    // Get User DTO Keeps by VaultId
+    internal IEnumerable<VaultKeep> GetDTOKeepsByVaultId(int vaultId, string userId)
     {
-      return _repo.GetDTOkByUser(keepId, userId);
+      return _repo.GetDTOKeepsByVaultId(vaultId, userId);
     }
 
-    // Get User DTOVaultKeeps by vaultId
-    internal IEnumerable<DTOVaultKeep> GetDTOvByUser(int vaultId, string userId)
+    // Get User VaultKeeps by vaultId
+    internal IEnumerable<VaultKeep> GetDTOvByUser(int vaultId, string userId)
     {
       return _repo.GetDTOvByUser(vaultId, userId);
     }
 
-    public DTOVaultKeep Get(int id, string userId)
+    public VaultKeep Get(int id, string userId)
     {
-      DTOVaultKeep exists = _repo.GetById(id);
+      VaultKeep exists = _repo.GetById(id);
       if (exists == null)
       {
         throw new System.Exception("VaultKeep does not exist!");
@@ -45,20 +45,22 @@ namespace Keepr.Services
       return exists;
     }
 
-    // public IEnumerable<DTOVaultKeep> GetKeepsByVaultId(int id)
+    // public IEnumerable<VaultKeep> GetKeepsByVaultId(int id)
     // {
     //   return _repo.GetKeepsByVaultId(id);
     // }
 
-    public DTOVaultKeep Create(DTOVaultKeep newVaultKeep)
+    public VaultKeep Create(VaultKeep newVaultKeep)
     {
-      _repo.Create(newVaultKeep);
-      return newVaultKeep;
+      return _repo.Create(newVaultKeep);
+      // int id = _repo.Create(newVaultKeep);
+      // newVaultKeep.id = id;
+      // return newVaultKeep;
     }
 
     public string Delete(int id, string userId)
     {
-      DTOVaultKeep exists = Get(id, userId);
+      VaultKeep exists = Get(id, userId);
       _repo.Delete(id);
       return "VaultKeep successfully deleted.";
     }

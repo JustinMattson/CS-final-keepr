@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Keepr.Models
 {
-  public class DTOVaultKeep
+  public class VaultKeep
   {
     public int id { get; set; }
 
@@ -12,7 +12,6 @@ namespace Keepr.Models
     [Required]
     public int keepId { get; set; }
 
-    [Required]
     public string userId { get; set; }
   }
 }

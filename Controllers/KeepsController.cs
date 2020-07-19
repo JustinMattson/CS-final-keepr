@@ -52,7 +52,7 @@ namespace Keepr.Controllers
       try
       {
         string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        return Ok(_ks.GetKeepById(id));
+        return Ok(_ks.GetKeepById(id, userId));
       }
       catch (Exception e)
       {

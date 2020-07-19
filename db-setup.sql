@@ -121,7 +121,9 @@ USE keepr252;
 -- }
 
 -- VaultKeeps:
-SELECT * FROM `keepr252`.`vaultkeeps` LIMIT 100;
+-- DELETE FROM vaultkeeps WHERE id > 22 && id < 60;
+SELECT * FROM `keepr252`.`vaultkeeps` ORDER BY id DESC LIMIT 100 ;
+select * from `keepr252`.`vaults` order by id desc LIMIT 100;
 -- SELECT * FROM `keepr252`. `vaultkeeps` WHERE userId = "dont trust the front end";
 
 -- SELECT * from `keepr252`.`vaultkeeps` WHERE vaultId = 11;

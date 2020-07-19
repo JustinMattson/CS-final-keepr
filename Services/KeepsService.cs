@@ -22,12 +22,16 @@ namespace Keepr.Services
       return _repo.GetKeepsByUser(userId);
     }
 
-    internal Keep GetKeepById(int id)
+    internal Keep GetKeepById(int id, string userId)
     {
       Keep foundKeep = _repo.GetKeepById(id);
       if (foundKeep == null)
       {
         throw new Exception("Invalid Id");
+      }
+      if (foundKeep.UserId != userId)
+      {
+        throw new Exception("Some Keeps are PRIVATE!");
       }
       return foundKeep;
     }
@@ -43,10 +47,14 @@ namespace Keepr.Services
     // Count view++ on router KeepsDetails
     internal Keep Edit(Keep ktu, string userId)
     {
-      Keep original = GetKeepById(ktu.Id);
+      Keep original = GetKeepById(ktu.Id, userId);
       if (ktu == null)
       {
         throw new Exception("Invalid Id");
+      }
+      if (ktu.IsPrivate && ktu.UserId != userId)
+      {
+        throw new Exception("You cannot edit others' private posts!");
       }
       // original.Name = ktu.Name == null ? original.Name : ktu.Name;
       // original.Description = ktu.Name == null ? original.Description : ktu.Description;
@@ -63,7 +71,7 @@ namespace Keepr.Services
     // Only user/author can delete, and only if isPrivate == true
     internal string Delete(int id, string userId)
     {
-      Keep foundKeep = GetKeepById(id);
+      Keep foundKeep = GetKeepById(id, userId);
       if (foundKeep.UserId != userId)
       {
         throw new Exception("This is not your Keep!");

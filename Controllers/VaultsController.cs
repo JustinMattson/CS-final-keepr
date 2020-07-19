@@ -15,9 +15,11 @@ namespace Keepr.Controllers
   public class VaultsController : ControllerBase
   {
     private readonly VaultsService _vs;
-    public VaultsController(VaultsService vs)
+    private readonly VaultKeepsService _vks;
+    public VaultsController(VaultsService vs, VaultKeepsService vks)
     {
       _vs = vs;
+      _vks = vks;
     }
 
     // NOTE a basic GET ALL does not make sense since vaults are private, however, in order to get past the HTTP 405, will need to implement a basic get.  This "GetAll" will duplicate GetVaultsByUser functionality.
@@ -66,6 +68,20 @@ namespace Keepr.Controllers
       };
     }
 
+    // Get User DTO Keeps by VaultId
+    [HttpGet("{vaultId}" + "/keeps")]
+    public ActionResult<IEnumerable<VaultKeep>> GetDTOKeepsByVaultId(int vaultId)
+    {
+      try
+      {
+        string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        return Ok(_vks.GetDTOKeepsByVaultId(vaultId, userId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
     [HttpPost]
     public ActionResult<Vault> Post([FromBody] Vault newVault)
     {
