@@ -29,6 +29,7 @@ namespace Keepr.Services
       {
         throw new Exception("Invalid Id");
       }
+      // NOTE private keeps are only visible to author/user
       if (foundKeep.UserId != userId)
       {
         throw new Exception("Some Keeps are PRIVATE!");
@@ -74,7 +75,7 @@ namespace Keepr.Services
       Keep foundKeep = GetKeepById(id, userId);
       if (foundKeep.UserId != userId)
       {
-        throw new Exception("This is not your Keep!");
+        throw new Exception("This is not your Keep to delete!");
       }
       if (_repo.Delete(id, userId))
       {
