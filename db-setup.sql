@@ -93,7 +93,7 @@ USE keepr252;
 -- }
 
 -- Vaults:
-SELECT * FROM `keepr252`.`vaults` LIMIT 100;
+-- SELECT * FROM `keepr252`.`vaults` LIMIT 100;
 -- UPDATE vaults SET userId="vraY84SbrI@clients" WHERE id = 22;
 -- {
 --     "id": 9,
@@ -121,7 +121,10 @@ SELECT * FROM `keepr252`.`vaults` LIMIT 100;
 -- }
 
 -- VaultKeeps:
--- SELECT * FROM `keepr252`.`vaultkeeps` LIMIT 100;
+SELECT * FROM `keepr252`.`vaultkeeps` LIMIT 100;
+-- SELECT * FROM `keepr252`. `vaultkeeps` WHERE userId = "dont trust the front end";
+
+-- SELECT * from `keepr252`.`vaultkeeps` WHERE vaultId = 11;
 
 
 -- CleanUp:

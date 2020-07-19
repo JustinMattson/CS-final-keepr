@@ -70,7 +70,7 @@ namespace Keepr.Services
       }
       if (_repo.Delete(id, userId))
       {
-        return "successfully deleted.";
+        return "Keep successfully deleted.";
       }
       throw new Exception("Public Keeps cannot be deleted!");
     }
