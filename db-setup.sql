@@ -1,4 +1,5 @@
 USE keepr252;
+-- NOTE all tables can have duplicate rows as there is only one primary key on id which does not guarantee uniqueness other columns...
 
 -- CREATE TABLE vaults (
 --     id int NOT NULL AUTO_INCREMENT,
@@ -60,9 +61,9 @@ USE keepr252;
 
 
 -- Keeps:
+-- SELECT * FROM `keepr252`.`keeps` LIMIT 100;
 -- DELETE FROM keeps WHERE name LIKE 'TEST%';
 -- UPDATE keeps SET userId="vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients" WHERE id = 10;
--- SELECT * FROM `keepr252`.`keeps` LIMIT 100;
 -- {
 --     "name": "Cookie Monster",
 --     "description": "Lovable Cookie Dude!",
@@ -92,8 +93,8 @@ USE keepr252;
 -- }
 
 -- Vaults:
+SELECT * FROM `keepr252`.`vaults` LIMIT 100;
 -- UPDATE vaults SET userId="vraY84SbrI@clients" WHERE id = 22;
--- SELECT * FROM `keepr252`.`vaults` LIMIT 100;
 -- {
 --     "id": 9,
 --     "userId": "vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients",
@@ -120,9 +121,9 @@ USE keepr252;
 -- }
 
 -- VaultKeeps:
-SELECT * FROM `keepr252`.`vaultkeeps` LIMIT 100;
+-- SELECT * FROM `keepr252`.`vaultkeeps` LIMIT 100;
 
 
 -- CleanUp:
 -- DELETE FROM keeps WHERE name LIKE '%KEEP%';
--- DELETE FROM vaults where name LIKE 'MY%';
+-- DELETE FROM vaults where name LIKE '%VAULT';

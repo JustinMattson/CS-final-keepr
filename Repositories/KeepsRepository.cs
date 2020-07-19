@@ -17,13 +17,13 @@ namespace Keepr.Repositories
     internal IEnumerable<Keep> Get()
     {
       // TINYINTs are boolean: False = 0, True = 1
-      string sql = "SELECT * FROM Keeps WHERE isPrivate = 0;";
+      string sql = "SELECT * FROM keeps WHERE isPrivate = 0;";
       return _db.Query<Keep>(sql);
     }
 
-    internal IEnumerable<Keep> GetKeepsByUserId(string userId)
+    internal IEnumerable<Keep> GetKeepsByUser(string userId)
     {
-      string sql = "SELECT * FROM Keeps WHERE userId = @userId;";
+      string sql = "SELECT * FROM keeps WHERE userId = @userId;";
       return _db.Query<Keep>(sql, new { userId });
     }
 

@@ -12,15 +12,19 @@ namespace Keepr.Services
     {
       _repo = repo;
     }
-    public IEnumerable<Vault> Get(string userId)
+    public IEnumerable<Vault> GetVaultsByUser(string userId)
     {
-      return _repo.Get(userId);
+      return _repo.GetVaultsByUser(userId);
     }
 
     internal Vault GetVaultById(int id, string userId)
     {
       Vault foundVault = _repo.GetVaultById(id);
-      if (foundVault == null || foundVault.UserId != userId)
+      if (foundVault == null)
+      {
+        throw new Exception("This vault does not exist.");
+      }
+      if (foundVault.UserId != userId)
       {
         throw new Exception("This vault does not belong to you.");
       }
@@ -43,11 +47,6 @@ namespace Keepr.Services
       original.Name = vtu.Name == null ? original.Name : vtu.Name;
       original.Description = vtu.Name == null ? original.Description : vtu.Description;
       // Author/userId is not to be changed. Ever.
-      // original.Img = vtu.Img == null ? original.Img : vtu.Img;
-      // original.IsPrivate = vtu.IsPrivate == original.IsPrivate ? original.IsPrivate : vtu.IsPrivate;
-      // original.Views = vtu.Views != 0 ? vtu.Views : original.Views;
-      // original.Shares = vtu.Shares != 0 ? vtu.Shares : original.Shares;
-      // original.Vaults = vtu.Vaults != 0 ? vtu.Vaults : original.Vaults;
       _repo.Edit(vtu);
       return original;
     }
@@ -66,7 +65,7 @@ namespace Keepr.Services
       {
         return "successfully deleted.";
       }
-      throw new Exception("Something unexpected happened?");
+      throw new Exception("Something unexpected happened.");
     }
   }
 }

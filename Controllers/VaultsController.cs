@@ -20,14 +20,16 @@ namespace Keepr.Controllers
       _vs = vs;
     }
 
+    // NOTE GET ALL does not make sense since vaults are private.
+
     // Get all vaults for authorized user
-    [HttpGet]
-    public ActionResult<IEnumerable<Vault>> Get(string id)
+    [HttpGet("user")]
+    public ActionResult<IEnumerable<Vault>> GetVaultsByUser()
     {
       try
       {
         string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        return Ok(_vs.Get(userId));
+        return Ok(_vs.GetVaultsByUser(userId));
       }
       catch (Exception e)
       {
