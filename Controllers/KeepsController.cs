@@ -96,7 +96,7 @@ namespace Keepr.Controllers
       }
     }
 
-    // Delete only if keep is "not private"
+    // Delete only if keep is "private"
     // Above comment fails to pass keepr-testing-tool
     [HttpDelete("{id}")]
     [Authorize]

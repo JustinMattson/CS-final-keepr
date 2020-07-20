@@ -15,8 +15,8 @@ export default {
     this.$store.dispatch("setBearer", this.$auth.bearer);
   },
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>
 
@@ -24,4 +24,7 @@ export default {
 @import "./assets/_variables.scss";
 @import "bootstrap";
 @import "./assets/_overrides.scss";
+.text-shadow {
+  text-shadow: 1px 1px black;
+}
 </style>

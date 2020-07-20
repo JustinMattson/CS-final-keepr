@@ -43,7 +43,7 @@ Also a vault has many keeps and keeps could have many vaults but only one author
 Also to make things more simplistic once a keep is marked public it can no longer be deleted.
 
 [/] Keep (not private) cannot be deleted
-NOTE: The Keepr Tester requires that "isPrivate = false" Keeps can be deleted.
+NOTE: The Keepr Tester requires that "isPrivate = true" PRIVATE KEEPS can be deleted - isPrivate = false CANNOT.
 
 ### Step 2 - Adding the functionality
 

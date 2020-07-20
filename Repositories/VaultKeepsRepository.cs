@@ -61,6 +61,7 @@ namespace Keepr.Repositories
     {
       string sql = "DELETE FROM VaultKeeps WHERE id = @Id";
       _db.Execute(sql, new { id });
+      // FIXME this should probably return something!
     }
 
     // public IEnumerable<VaultKeep> GetKeepsByVaultId(int id)
