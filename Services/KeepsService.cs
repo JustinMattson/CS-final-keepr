@@ -30,7 +30,7 @@ namespace Keepr.Services
         throw new Exception("Invalid Id");
       }
       // NOTE private keeps are only visible to author/user
-      if (foundKeep.UserId != userId)
+      if (foundKeep.IsPrivate == true && foundKeep.UserId != userId)
       {
         throw new Exception("Some Keeps are PRIVATE!");
       }

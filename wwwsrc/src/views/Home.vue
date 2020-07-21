@@ -1,11 +1,11 @@
 <template>
   <div class="home container-fluid p-2">
     <div class="row">
-      <div class="col text-center">
+      <div class="col text-center text-shadow">
         <h1>Welcome to Keepr!</h1>
       </div>
       <!-- add modal to add keep if logged in -->
-      <div class="col-12 list-container">
+      <div class="col-12 list-container d-flex justify-content-center">
         <div id="keeps" class="card-columns p-2" style="column-gap: 1rem;">
           <!-- KEEP COMPONENTS BEGIN -->
           <keep v-for="keep in keeps" :key="keep.id" :keep="keep" />
@@ -27,7 +27,7 @@ export default {
   name: "home",
   data() {
     return {
-      newKeep: {},
+      newKeep: {}
     };
   },
   async mounted() {
@@ -39,16 +39,16 @@ export default {
     },
     keeps() {
       return this.$store.state.publicKeeps;
-    },
+    }
   },
   methods: {
     logout() {
       this.$store.dispatch("logout");
-    },
+    }
   },
   components: {
-    Keep,
-  },
+    Keep
+  }
 };
 </script>
 

@@ -13,9 +13,7 @@
           data-toggle="modal"
           data-target="#vaultModal"
           v-if="$auth.isAuthenticated"
-        >
-          Add Vault
-        </button>
+        >Add Vault</button>
 
         <button
           type="button"
@@ -23,9 +21,7 @@
           data-toggle="modal"
           data-target="#keepModal"
           v-if="$auth.isAuthenticated"
-        >
-          Add Keep
-        </button>
+        >Add Keep</button>
       </div>
 
       <!-- KEEP MODAL FORM -->
@@ -35,9 +31,7 @@
           <div class="modal-content">
             <div class="modal-header bg-primary shadow-sm">
               <h4 class="modal-title text-white">New Keep</h4>
-              <button type="button" class="close" data-dismiss="modal">
-                &times;
-              </button>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body shadow-sm container text-secondary">
               <!-- add submit method here -->
@@ -46,12 +40,7 @@
                   <div class="col text-center">
                     <!-- add v-model -->
                     <h5>Name:</h5>
-                    <input
-                      type="text"
-                      placeholder="Name..."
-                      required
-                      v-model="newKeep.name"
-                    />
+                    <input type="text" placeholder="Name..." required v-model="newKeep.name" />
                   </div>
                 </div>
                 <div class="row justify-content-center mt-3">
@@ -72,27 +61,19 @@
                 <div class="row justify-content-center">
                   <div class="col text-center">
                     <h5>Image (optional):</h5>
-                    <input
-                      type="text"
-                      placeholder="Image Link"
-                      v-model="newKeep.img"
-                    />
+                    <input type="text" placeholder="Image Link" v-model="newKeep.img" />
                   </div>
                 </div>
 
                 <div class="row justify-content-center mt-3">
                   <div class="col text-center">
-                    <button type="submit" class="btn btn-secondary btn-lg">
-                      Add Keep
-                    </button>
+                    <button type="submit" class="btn btn-secondary btn-lg">Add Keep</button>
                   </div>
                 </div>
               </form>
             </div>
             <div class="modal-footer bg-primary shadow-sm">
-              <button type="button" class="btn btn-light" data-dismiss="modal">
-                Cancel
-              </button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
             </div>
           </div>
         </div>
@@ -106,9 +87,7 @@
           <div class="modal-content">
             <div class="modal-header bg-primary shadow-sm">
               <h4 class="modal-title text-white">New Vault</h4>
-              <button type="button" class="close" data-dismiss="modal">
-                &times;
-              </button>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body shadow-sm container text-secondary">
               <!-- add submit method here -->
@@ -117,12 +96,7 @@
                   <div class="col text-center">
                     <!-- add v-model -->
                     <h5>Name:</h5>
-                    <input
-                      type="text"
-                      placeholder="Name..."
-                      required
-                      v-model="newVault.name"
-                    />
+                    <input type="text" placeholder="Name..." required v-model="newVault.name" />
                   </div>
                 </div>
                 <div class="row justify-content-center mt-3">
@@ -142,17 +116,13 @@
                 </div>
                 <div class="row justify-content-center mt-3">
                   <div class="col text-center">
-                    <button type="submit" class="btn btn-secondary btn-lg">
-                      Add Vault
-                    </button>
+                    <button type="submit" class="btn btn-secondary btn-lg">Add Vault</button>
                   </div>
                 </div>
               </form>
             </div>
             <div class="modal-footer bg-primary shadow-sm">
-              <button type="button" class="btn btn-light" data-dismiss="modal">
-                Cancel
-              </button>
+              <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
             </div>
           </div>
         </div>
@@ -160,24 +130,20 @@
       <!-- END VAULT MODAL FORM -->
     </div>
 
-    <div class="col-12 d-flex justify-content-around">
-      <button class="btn btn-outline-warning" @click="toggleVaults">
-        My Vaults
-      </button>
-      <button class="btn btn-outline-info" @click="toggleKeeps">
-        My Keeps
-      </button>
+    <div class="col-12 d-flex justify-content-around mb-3">
+      <button class="btn btn-outline-warning" @click="toggleVaults">My Vaults</button>
+      <button class="btn btn-outline-info" @click="toggleKeeps">My Keeps</button>
     </div>
 
-    <div class="col-12 list-container" v-show="showKeeps">
-      <div id="keeps" class="card-columns p-2" style="column-gap: 1rem;">
+    <div class="col-12 list-container d-flex justify-content-center">
+      <div id="keeps" class="card-columns p-2" v-show="showKeeps" style="column-gap: 1rem;">
         <!-- KEEP COMPONENTS BEGIN -->
         <keep v-for="keep in myKeeps" :key="keep.id" :keep="keep" />
         <!-- KEEP COMPONENTS END -->
       </div>
     </div>
-    <div class="col-12 list-container" v-show="showVaults">
-      <div id="vaults" class="card-columns p-2" style="column-gap: 1rem;">
+    <div class="col-12 list-container d-flex justify-content-center">
+      <div id="vaults" class="card-columns p-2" v-show="showVaults" style="column-gap: 1rem;">
         <!-- VAULT COMPONENTS BEGIN -->
         <vault v-for="vault in myVaults" :key="vault.id" :vault="vault" />
         <!-- VAULT COMPONENTS END -->
@@ -196,7 +162,7 @@ export default {
       showKeeps: false,
       showVaults: false,
       newKeep: {},
-      newVault: {},
+      newVault: {}
     };
   },
   async mounted() {
@@ -210,7 +176,7 @@ export default {
     },
     myVaults() {
       return this.$store.state.myVaults;
-    },
+    }
   },
   methods: {
     toggleKeeps() {
@@ -231,12 +197,12 @@ export default {
       await this.$store.dispatch("createVault", this.newVault);
       this.newVault = {};
       $("#vaultModal").modal("hide");
-    },
+    }
   },
   components: {
     Keep,
-    Vault,
-  },
+    Vault
+  }
 };
 </script>
 

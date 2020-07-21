@@ -1,39 +1,28 @@
 <template>
   <div class="vault container p-0">
     <!-- VAULT TEMPLATE -->
-    <!-- TODO Router Link to VaultrDetails On Image -->
-    <!-- <router-link :to="{ name: 'vaultdetails', params: { id: vault.id } }"> -->
-    <div
-      class="card shadow rounded-lg bg-dark text-white text-shadow border-warning"
-      style="minHeight:100px"
-    >
-      <!-- <img class="card-img" :src="vault.img" alt="Card image" /> -->
-      <div class="card-img-overlay px-3 py-2">
-        <div class="card-body txt-shadow p-0">
+    <!-- FIXME Router Link text-decoration:none -->
+    <router-link :to="{ name: 'vaultdetails', params: { vaultId: vault.id } }">
+      <div class="card text-shadow border-warning mb-3" style="max-width: 18rem;">
+        <div class="card-body p-0">
           <span class="d-flex justify-content-between">
-            <div class="card-title">Keeps Count: --</div>
-            <div class="card-title">Keeps Mine/Others: ?/?</div>
+            <div class="card-title">My Keeps: --</div>
+            <br />
+            <div class="card-title">Others Kept: --</div>
           </span>
-          <div class="text-shadow">
-            <small>{{ vault.description }}</small>
-          </div>
+          <div class="p-2">Name: {{vault.name}}</div>
+          <div class="p-2">Description: {{ vault.description }}</div>
+        </div>
+        <div class="card-footer border-warning">
           <span class="d-flex justify-content-between">
-            <small class="card-text text-muted">
-              <i
-                class="far fa-trash-alt text-danger"
-                v-show="vault.isPrivate == true"
-                title="Delete Vault"
-              ></i>
-              kId: {{ vault.id }}</small
-            >
-            <!-- TODO Save Vault Link within router -->
-            <i class="fas fa-heart text-danger" title="I heart this Vault"></i>
+            <i class="far fa-trash-alt text-danger" title="Delete Vault" @click="deleteVault"></i>
+            <small class="card-text text-muted">vId: {{ vault.id }}</small>
+            <!-- <i class="fas fa-pencil-alt text-warning" title="Edit Vault" @click="editVault"></i> -->
           </span>
         </div>
       </div>
-    </div>
+    </router-link>
     <!-- END VAULT TEMPLATE -->
-    <!-- </router-link> -->
   </div>
 </template>
 
@@ -47,7 +36,9 @@ export default {
   },
   mounted() {},
   computed: {},
-  methods: {},
+  methods: {
+    addKeepToVault() {}
+  },
   deleteVault() {
     swal({
       title: "Are you sure?",
@@ -55,12 +46,12 @@ export default {
         "Click 'Ok' to confirm you wish to delete this Vault.  This action cannot be undone.",
       icon: "warning",
       buttons: true,
-      dangerMode: true,
-    }).then((deleteMe) => {
+      dangerMode: true
+    }).then(deleteMe => {
       if (deleteMe) {
         let data = this.$store.dispatch("deleteVault", this.vault);
         swal("Poof! Your Vault has been removed!", {
-          icon: "success",
+          icon: "success"
         });
         // this.editVault = false;
       } else {
@@ -68,7 +59,7 @@ export default {
       }
     });
   },
-  components: {},
+  components: {}
 };
 </script>
 

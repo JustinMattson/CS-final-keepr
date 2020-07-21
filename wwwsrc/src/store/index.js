@@ -22,6 +22,7 @@ export default new Vuex.Store({
     myKeeps: [],
     myVaults: [],
     activeKeep: {},
+    activeVault: {},
   },
   mutations: {
     //#region mutation KEEPS
@@ -64,6 +65,9 @@ export default new Vuex.Store({
     addVault(state, newVault) {
       state.myVaults.push(newVault);
     },
+    setActiveVault(state, vault) {
+      state.activeVault = vault;
+    },
     //#endregion mutation VAULTS
   },
   actions: {
@@ -93,7 +97,7 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async getKeepsById({ commit, dispatch }, id) {
+    async getKeepById({ commit, dispatch }, id) {
       try {
         let res = await api.get("keeps/" + id);
         commit("setActiveKeep", res.data);
@@ -103,11 +107,11 @@ export default new Vuex.Store({
     },
     async createKeep({ commit, dispatch }, newKeep) {
       try {
-        debugger;
         let res = await api.post("keeps", newKeep);
         dispatch("getUserKeeps");
-        // commit("addKeep", res.data);
-        // router.push({ name: "keepdetails", params: { keepId: res.data.id } });
+        commit("addKeep", res.data);
+        commit("setActiveKeep", res.data);
+        router.push({ name: "keepdetails", params: { keepId: res.data.id } });
         return res.data;
       } catch (error) {
         console.error(error);
@@ -146,12 +150,20 @@ export default new Vuex.Store({
     },
     async createVault({ commit, dispatch }, newVault) {
       try {
-        debugger;
         let res = await api.post("vaults", newVault);
         dispatch("getUserVaults");
-        // commit("addVault", res.data);
-        // router.push({ name: "vaultdetails", params: { vaultId: res.data.id } });
+        commit("addVault", res.data);
+        commit("setActiveVault", res.data);
+        router.push({ name: "vaultdetails", params: { vaultId: res.data.id } });
         return res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getVaultById({ commit, dispatch }, id) {
+      try {
+        let res = await api.get("vaults/" + id);
+        commit("setActiveVault", res.data);
       } catch (error) {
         console.error(error);
       }
