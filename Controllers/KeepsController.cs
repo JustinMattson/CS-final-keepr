@@ -51,7 +51,12 @@ namespace Keepr.Controllers
     {
       try
       {
-        string userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        string userId = "";
+        var claim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        if (claim != null)
+        {
+          userId = claim.Value;
+        }
         return Ok(_ks.GetKeepById(id, userId));
       }
       catch (Exception e)
