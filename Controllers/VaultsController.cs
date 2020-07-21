@@ -69,7 +69,7 @@ namespace Keepr.Controllers
 
     // Get User DTO Keeps by VaultId
     [HttpGet("{vaultId}" + "/keeps")]
-    public ActionResult<IEnumerable<VaultKeep>> GetDTOKeepsByVaultId(int vaultId)
+    public ActionResult<IEnumerable<VaultKeepViewModel>> GetDTOKeepsByVaultId(int vaultId)
     {
       try
       {

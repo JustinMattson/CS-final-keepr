@@ -20,7 +20,7 @@ namespace Keepr.Services
     }
 
     // Get User DTO Keeps by VaultId
-    internal IEnumerable<VaultKeep> GetDTOKeepsByVaultId(int vaultId, string userId)
+    internal IEnumerable<VaultKeepViewModel> GetDTOKeepsByVaultId(int vaultId, string userId)
     {
       return _repo.GetDTOKeepsByVaultId(vaultId, userId);
     }

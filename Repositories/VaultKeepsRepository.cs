@@ -21,12 +21,17 @@ namespace Keepr.Repositories
     }
 
     // Get User DTO Keeps by vaultId
-    internal IEnumerable<VaultKeep> GetDTOKeepsByVaultId(int vaultId, string userId)
+    internal IEnumerable<VaultKeepViewModel> GetDTOKeepsByVaultId(int vaultId, string userId)
     {
       string sql = @"
-        SELECT * FROM vaultkeeps WHERE vaultId = @vaultId && userId = @userId;
+        SELECT 
+          k.*,
+          vk.id as vaultKeepId
+        FROM vaultkeeps vk
+          INNER JOIN keeps k ON k.id = vk.keepId 
+        WHERE (vaultId = @vaultId AND vk.userId = @userId)
       ";
-      return _db.Query<VaultKeep>(sql, new { vaultId, userId });
+      return _db.Query<VaultKeepViewModel>(sql, new { vaultId, userId });
     }
 
     // Get User VaultKeeps by vaultId
