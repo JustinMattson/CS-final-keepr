@@ -19,7 +19,7 @@
             v-for="keep in publicKeeps"
             :key="keep.id"
             :keep="keep"
-            v-show="publicKeeps.id == vaultKeep.keepId"
+            v-show="publicKeeps.id == vaultKeeps.keepId"
           />
           <!-- KEEP COMPONENTS END -->
         </div>
