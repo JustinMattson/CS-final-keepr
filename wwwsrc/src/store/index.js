@@ -21,6 +21,7 @@ export default new Vuex.Store({
     // privateKeeps: [],
     myKeeps: [],
     myVaults: [],
+    vaultkeeps: [],
     activeKeep: {},
     activeVault: {},
   },
@@ -69,11 +70,16 @@ export default new Vuex.Store({
       state.activeVault = vault;
     },
     removeVault(state, id) {
-      debugger;
       let index = state.myVaults.findIndex((v) => v.id == id);
       state.myVaults.splice(index, 1);
     },
     //#endregion mutation VAULTS
+
+    //#region mutation VAULTKEEPS
+    addVK(state, newVK) {
+      state.vaultkeeps.push(newVK);
+    },
+    //#endregion mutation VAULTKEEPS
   },
   actions: {
     setBearer({}, bearer) {
@@ -126,7 +132,6 @@ export default new Vuex.Store({
       try {
         let id = update.id;
         let res = await api.put("keeps/" + id, update);
-        debugger;
         if (res.data.isPrivate == false) {
           dispatch("getKeeps", res.data);
         } else {
@@ -138,7 +143,6 @@ export default new Vuex.Store({
     },
     async deleteKeep({ commit, dispatch }, id) {
       try {
-        debugger;
         let res = await api.delete("keeps/" + id);
         commit("removeKeep", id);
       } catch (error) {
@@ -183,7 +187,20 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-
     //#endregion actions VAULTS
+
+    //#region actions VAULTKEEPS
+
+    async createVK({ commit, dispatch }, newVK) {
+      try {
+        let res = await api.post("vaultkeeps", newVK);
+        debugger;
+        commit("addVK", res.data);
+        return res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    //#endregion actions VAULTKEEPS
   },
 });

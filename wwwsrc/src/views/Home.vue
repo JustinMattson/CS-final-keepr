@@ -8,7 +8,7 @@
       <div class="col-12 list-container d-flex justify-content-center">
         <div id="keeps" class="card-columns p-2" style="column-gap: 1rem;">
           <!-- KEEP COMPONENTS BEGIN -->
-          <keep v-for="keep in keeps" :key="keep.id" :keep="keep" />
+          <keep v-for="keep in publicKeeps" :key="keep.id" :keep="keep" />
           <!-- KEEP COMPONENTS END -->
         </div>
       </div>
@@ -37,8 +37,11 @@ export default {
     user() {
       return this.$store.state.user;
     },
-    keeps() {
+    publicKeeps() {
       return this.$store.state.publicKeeps;
+    },
+    myVaults() {
+      return this.$store.state.myVaults;
     }
   },
   methods: {

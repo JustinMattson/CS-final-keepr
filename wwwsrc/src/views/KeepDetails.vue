@@ -18,22 +18,42 @@
         <small class="text-info">Views:</small>
         {{keep.views}}
         <br />
-        <small class="text-info">Keeps:</small>
-        {{keep.keeps}}
-        <br />
+        <p>
+          <small class="text-info">Keeps:</small>
+          {{keep.keeps}}
+        </p>
+
+        <i
+          class="fas fa-lock text-warning action"
+          @click="toggleVaultList"
+          v-show="!keep.isPrivate"
+        >&nbsp;Add to Vault</i>
+        <div id="vaultList" class="pl-3" v-show="showVaultList">
+          <saveComponent
+            v-for="vault in myVaults"
+            :key="vault.id"
+            :vault="vault"
+            :keep="keep"
+          >{{ vault.name }}</saveComponent>
+        </div>
       </div>
     </div>
     <div class="col-12">
-      <small>{{keep}}</small>
+      <p>
+        <small>{{keep}}</small>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
+import SaveComponent from "@/components/SaveComponent.vue";
 export default {
   name: "keepdetails",
   data() {
-    return {};
+    return {
+      showVaultList: false
+    };
   },
   async mounted() {
     await this.$store.dispatch("getKeepById", this.$route.params.keepId);
@@ -45,10 +65,19 @@ export default {
   computed: {
     keep() {
       return this.$store.state.activeKeep;
+    },
+    myVaults() {
+      return this.$store.state.myVaults;
     }
   },
-  methods: {},
-  components: {}
+  methods: {
+    toggleVaultList() {
+      this.showVaultList = !this.showVaultList;
+    }
+  },
+  components: {
+    SaveComponent
+  }
 };
 </script>
 

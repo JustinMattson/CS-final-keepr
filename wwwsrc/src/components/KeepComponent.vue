@@ -30,7 +30,12 @@
 
             <small class="card-text text-muted">kId: {{ keep.id }}</small>
             <!-- TODO Save Keep Link within router -->
-            <i class="fas fa-heart text-danger action" title="Add to Vault" @click="addKeepToVault"></i>
+            <i
+              class="fas fa-heart text-danger action"
+              title="Add to Vault"
+              @click="addKeepToVault"
+              v-show="!keep.isPrivate"
+            ></i>
           </span>
         </div>
       </div>
