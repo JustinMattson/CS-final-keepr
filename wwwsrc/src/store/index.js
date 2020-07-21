@@ -21,7 +21,7 @@ export default new Vuex.Store({
     // privateKeeps: [],
     myKeeps: [],
     myVaults: [],
-    vaultkeeps: [],
+    vaultKeeps: [],
     activeKeep: {},
     activeVault: {},
   },
@@ -59,6 +59,7 @@ export default new Vuex.Store({
       state.myKeeps.splice(index, 1);
     },
     //#endregion mutation KEEPS
+
     //#region mutation VAULTS
     setMyVaults(state, vaults) {
       state.myVaults = vaults;
@@ -76,11 +77,20 @@ export default new Vuex.Store({
     //#endregion mutation VAULTS
 
     //#region mutation VAULTKEEPS
+    setUserVKs(state, userVKs) {
+      state.vaultKeeps = userVKs;
+    },
     addVK(state, newVK) {
-      state.vaultkeeps.push(newVK);
+      state.vaultKeeps.push(newVK);
+      debugger;
+    },
+    removeVK(state, id) {
+      let index = state.vaultKeeps.findIndex((vk) => vk.id == id);
+      state.vaultKeeps.splice(index, 1);
     },
     //#endregion mutation VAULTKEEPS
   },
+
   actions: {
     setBearer({}, bearer) {
       api.defaults.headers.authorization = bearer;
@@ -191,12 +201,29 @@ export default new Vuex.Store({
 
     //#region actions VAULTKEEPS
 
+    async getUserVKs({ commit, dispatch }) {
+      try {
+        let res = await api.get("vaultkeeps");
+        commit("setUserVKs", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     async createVK({ commit, dispatch }, newVK) {
       try {
         let res = await api.post("vaultkeeps", newVK);
         debugger;
         commit("addVK", res.data);
         return res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteVK({ commit, dispatch }, id) {
+      try {
+        let res = await api.delete("vaultkeeps/" + id);
+        commit("removeVK", id);
       } catch (error) {
         console.error(error);
       }
