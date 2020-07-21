@@ -49,14 +49,15 @@ export default new Vuex.Store({
       let foundKeep = state.myKeeps.find((k) => k.id == update.id);
       foundKeep = update;
     },
-    // updatePrivateKeep(state, update) {
-    //   let foundKeep = state.privateKeeps.find((k) => k.id == update.id);
-    //   foundKeep = update;
-    // },
-    // removeKeep(state, id) {
-    //   let index = state.privateKeeps.findIndex((k) => k.id == id);
-    //   state.privateKeeps.splice(index, 1);
-    // },
+    updatePrivateKeep(state, update) {
+      let foundKeep = state.privateKeeps.find((k) => k.id == update.id);
+      foundKeep = update;
+    },
+    removeKeep(state, id) {
+      debugger;
+      let index = state.myKeeps.findIndex((k) => k.id == id);
+      state.myKeeps.splice(index, 1);
+    },
     //#endregion mutation KEEPS
     //#region mutation VAULTS
     setMyVaults(state, vaults) {
@@ -121,8 +122,9 @@ export default new Vuex.Store({
       try {
         let id = update.id;
         let res = await api.put("keeps/" + id, update);
+        debugger;
         if (res.data.isPrivate == false) {
-          commit("updatePublicKeep", res.data);
+          dispatch("getKeeps", res.data);
         } else {
           commit("updateMyKeep", res.data);
         }
@@ -132,6 +134,7 @@ export default new Vuex.Store({
     },
     async deleteKeep({ commit, dispatch }, id) {
       try {
+        debugger;
         let res = await api.delete("keeps/" + id);
         commit("removeKeep", id);
       } catch (error) {
