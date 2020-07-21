@@ -20,7 +20,7 @@ export default new Router({
       component: Home,
     },
     {
-      path: "/:keepId",
+      path: "/keeps/:keepId",
       name: "keepdetails",
       component: KeepDetails,
     },

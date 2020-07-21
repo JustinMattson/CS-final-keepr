@@ -49,12 +49,11 @@ export default new Vuex.Store({
       let foundKeep = state.myKeeps.find((k) => k.id == update.id);
       foundKeep = update;
     },
-    updatePrivateKeep(state, update) {
-      let foundKeep = state.privateKeeps.find((k) => k.id == update.id);
-      foundKeep = update;
-    },
+    // updatePrivateKeep(state, update) {
+    //   let foundKeep = state.privateKeeps.find((k) => k.id == update.id);
+    //   foundKeep = update;
+    // },
     removeKeep(state, id) {
-      debugger;
       let index = state.myKeeps.findIndex((k) => k.id == id);
       state.myKeeps.splice(index, 1);
     },
@@ -68,6 +67,11 @@ export default new Vuex.Store({
     },
     setActiveVault(state, vault) {
       state.activeVault = vault;
+    },
+    removeVault(state, id) {
+      debugger;
+      let index = state.myVaults.findIndex((v) => v.id == id);
+      state.myVaults.splice(index, 1);
     },
     //#endregion mutation VAULTS
   },
@@ -167,6 +171,14 @@ export default new Vuex.Store({
       try {
         let res = await api.get("vaults/" + id);
         commit("setActiveVault", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async deleteVault({ commit, dispatch }, id) {
+      try {
+        let res = await api.delete("vaults/" + id);
+        commit("removeVault", id);
       } catch (error) {
         console.error(error);
       }

@@ -181,22 +181,28 @@ export default {
   methods: {
     toggleKeeps() {
       this.showKeeps = !this.showKeeps;
+      if (this.showVaults == true) {
+        this.showVaults = !this.showVaults;
+      }
     },
     toggleVaults() {
       this.showVaults = !this.showVaults;
+      if (this.showKeeps == true) {
+        this.showKeeps = !this.showKeeps;
+      }
     },
     async addKeep() {
+      $("#keepModal").modal("hide");
       this.newKeep.isPrivate = true;
       this.newKeep.views = 0;
       this.newKeep.keeps = 0;
       await this.$store.dispatch("createKeep", this.newKeep);
       this.newKeep = {};
-      $("#keepModal").modal("hide");
     },
     async addVault() {
+      $("#vaultModal").modal("hide");
       await this.$store.dispatch("createVault", this.newVault);
       this.newVault = {};
-      $("#vaultModal").modal("hide");
     }
   },
   components: {

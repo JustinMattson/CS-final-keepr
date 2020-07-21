@@ -57,6 +57,10 @@ namespace Keepr.Services
       {
         throw new Exception("You cannot edit others' private posts!");
       }
+      if (ktu.UserId != userId)
+      {
+        throw new Exception("You cannot edit others' private posts!");
+      }
       // original.Name = ktu.Name == null ? original.Name : ktu.Name;
       // original.Description = ktu.Name == null ? original.Description : ktu.Description;
       // Author/userId is not to be changed. Ever.
