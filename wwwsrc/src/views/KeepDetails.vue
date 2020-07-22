@@ -72,10 +72,11 @@
           </div>
         </div>
         <!-- END VAULT MODAL FORM -->
+
         <i
           class="fas fa-lock text-warning action"
           @click="toggleVaultList"
-          v-show="!keep.isPrivate"
+          v-show="!keep.isPrivate && $auth.isAuthenticated"
         >&nbsp;Add to Vault</i>
         <i
           class="fas fa-lock-open action"

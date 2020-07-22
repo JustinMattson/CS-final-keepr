@@ -12,7 +12,7 @@
 
         <small
           class="text-muted"
-          v-show="vaultKeeps.length < 1"
+          v-show="keepsByVault.length < 1"
         >Keeps stored in this vault will be displayed here</small>
       </div>
       <!-- Display keeps within this vault -->

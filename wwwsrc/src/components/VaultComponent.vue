@@ -5,13 +5,23 @@
     <router-link :to="{ name: 'vaultdetails', params: { vaultId: vault.id } }">
       <div class="card text-shadow border-warning mb-3" style="max-width: 18rem;">
         <div class="card-body p-0">
-          <span class="d-flex justify-content-between">
-            <div class="card-title">My Keeps: --</div>
+          <!-- <span class="d-flex justify-content-between">
+            <div class="card-title">Keeps: {{keepsByVault.length}}</div>
             <br />
             <div class="card-title">Others Kept: --</div>
-          </span>
-          <div class="p-2">Name: {{vault.name}}</div>
-          <div class="p-2">Description: {{ vault.description }}</div>
+          </span>-->
+          <div class="p-2">
+            <h5>
+              <small>Name:</small>
+              {{vault.name}}
+            </h5>
+          </div>
+          <div class="p-2">
+            <h6>
+              <small>Description:</small>
+              {{ vault.description }}
+            </h6>
+          </div>
         </div>
         <div class="card-footer border-warning">
           <span class="d-flex justify-content-between">
@@ -38,8 +48,15 @@ export default {
   data() {
     return {};
   },
-  mounted() {},
-  computed: {},
+  async mounted() {
+    // This only activates when going into VaultDetails cannot be used when showing all vaults from dashboard.
+    await this.$store.dispatch("getKeepsByVaultId", this.$route.params.vaultId);
+  },
+  computed: {
+    keepsByVault() {
+      return this.$store.state.keepsByVault;
+    }
+  },
   methods: {
     addKeepToVault() {},
     deleteVault() {
