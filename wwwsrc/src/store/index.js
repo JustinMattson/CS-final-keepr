@@ -88,6 +88,7 @@ export default new Vuex.Store({
     // all vaultkeeps
     addVK(state, newVK) {
       state.vaultKeeps.push(newVK);
+      debugger;
     },
     removeVK(state, id) {
       let index = state.vaultKeeps.findIndex((vk) => vk.id == id);
@@ -177,7 +178,7 @@ export default new Vuex.Store({
     async createVault({ commit, dispatch }, newVault) {
       try {
         let res = await api.post("vaults", newVault);
-        dispatch("getUserVaults");
+        // dispatch("getUserVaults");  // REVIEW dispatch getUserVaults may not be needed since it routes to vault details?
         commit("addVault", res.data);
         commit("setActiveVault", res.data);
         router.push({ name: "vaultdetails", params: { vaultId: res.data.id } });
@@ -222,10 +223,12 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-
+    // FIXME this is HTTP 400 request failed.
     async createVK({ commit, dispatch }, newVK) {
       try {
+        debugger;
         let res = await api.post("vaultkeeps", newVK);
+        dispatch("getKeepsByVaultId");
         commit("addVK", res.data);
         return res.data;
       } catch (error) {
