@@ -14,16 +14,16 @@ Keepr is a typical project where some of the basic layouts have been thought up 
 
 [+] View keeps without login
 [+] Post keep requires login
-[ ] Keeps saved to vaults
+[+] Keeps saved to vaults
 
 We want to give the users the opportunity to click on the keep icon for any post and have a list of their vaults appear. Selecting the vault should create a reference to that post and the users vault.
 
-[ ] Keep icon prompts authorized user to choose vault
-[ ] Selecting desired vault adds keep to vault (vaultkeep)
+[+] Keep icon prompts authorized user to choose vault
+[+] Selecting desired vault adds keep to vault (vaultkeep)
 
 Vaults themselves are relatively simple... They only require a name and a description and will then have a list of posts that are saved within the vault. Think about how you will handle this relationship.
-[ ] Each vault will have ONE userId
-[ ] ONE userId may have MANY vaults
+[+] Each vault will have ONE userId
+[+] ONE userId may have MANY vaults
 
 For example I may really like game art and thus I would be a user who creates a vault named **_Sweet Game Art_** I will then start saving the `keeps` I like into this vault.
 
@@ -38,17 +38,15 @@ Users will be allowed to create vaults where they can organize the posts of othe
 > Remember that a single user can have many vaults but each vault will only belong to a single user. **Due to the privacy of our users Vaults may only be retrieved by the user who created the vault.**
 
 Also a vault has many keeps and keeps could have many vaults but only one author or user...
-[ ]
+[+] Also to make things more simplistic once a keep is marked public it can no longer be deleted.
 
-Also to make things more simplistic once a keep is marked public it can no longer be deleted.
-
-[/] Keep (not private) cannot be deleted
+[+] Keep (not private) cannot be deleted
 NOTE: The Keepr Tester requires that "isPrivate = true" PRIVATE KEEPS can be deleted - isPrivate = false CANNOT.
 
 ### Step 2 - Adding the functionality
 
 Once you get to the point where users can create vaults its time to put them to work. Users need a simple way to add a paticular keep to the vault of their choice while browsing. Also to give users some credit for creating excellent keeps lets keep track of the number of times a keep has been added to any vault. We also want to keep track of the number of views each keep gets.
-[ ] Users can add/move keep to vault of their choice
+[+] Users can add/move keep to vault of their choice
 [ ] Keep track of keep popularity (times added to vault)
 [ ] Keep track of keep popularity (number of views)
 
@@ -71,7 +69,7 @@ What this site is already pretty if you follow the mocks :wink: Make sure the fe
 [+] - Keeps are displayed in a card like format with all data rendered
 [+] - Users have a dashboard route to see all their keeps and vaults
 [+] - Users can only see vaults they created
-[ ] - Users can View all the keeps in a given vault
+[+] - Users can View all the keeps in a given vault
 [ ] - Anytime a `keep` is `kept in a vault` the relevant count should go up
 
 #### Functionality:
@@ -81,8 +79,8 @@ What this site is already pretty if you follow the mocks :wink: Make sure the fe
   [+] - Create and Delete Keeps
   [+] - Create and Delete Vaults
   [+] - Only Delete **things they created**
-  [ ] - Add Keeps to Vaults
-  [ ] - Remove Keeps from Vaults
+  [+] - Add Keeps to Vaults
+  [+] - Remove Keeps from Vaults
 
 ### Finished?
 

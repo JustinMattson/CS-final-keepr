@@ -36,10 +36,10 @@
 
             <small class="card-text text-muted">kId: {{ keep.id }}</small>
             <!-- TODO Save Keep Link within router -->
+            <!-- @click="addKeepToVault" -->
             <i
               class="fas fa-heart text-danger action"
               title="Add to Vault"
-              @click="addKeepToVault"
               v-show="!keep.isPrivate"
             ></i>
           </span>
@@ -61,28 +61,28 @@ export default {
   mounted() {},
   computed: {},
   methods: {
-    addKeepToVault() {
-      // this.$store.dispatch("createVaultKeep")
-    },
+    // addKeepToVault() {
+    //   // this.$store.dispatch("createVaultKeep") // MOVED to KeepDetails
+    // },
     deleteVaultKeep() {
       swal({
         title: "Are you sure?",
         text:
-          "Click 'Ok' to confirm you wish to delete this Keep from this Vault.  This action cannot be undone.",
+          "Click 'Ok' to confirm you wish to remove this Keep from this Vault.  This action cannot be undone.",
         icon: "error",
         buttons: true,
         dangerMode: true
       }).then(removeKeep => {
         if (removeKeep) {
-          let data = this.$store.dispatch("deleteVK", this.keep.vaultKeepId);
+          this.keep.vaultId = this.$route.params.vaultId;
+          let data = this.$store.dispatch("deleteVK", this.keep);
           swal("Poof! Keep has been removed from Vault!", {
             icon: "success"
           });
         } else {
-          swal("Delete cancelled");
+          swal("Removing Keep from Vault cancelled.");
         }
       });
-      this.$store.dispatch("deleteVK", this.keep.vaultKeepId);
     },
     publish() {
       swal({

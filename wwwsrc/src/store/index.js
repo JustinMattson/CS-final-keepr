@@ -88,7 +88,6 @@ export default new Vuex.Store({
     // all vaultkeeps
     addVK(state, newVK) {
       state.vaultKeeps.push(newVK);
-      debugger;
     },
     removeVK(state, id) {
       let index = state.vaultKeeps.findIndex((vk) => vk.id == id);
@@ -161,6 +160,7 @@ export default new Vuex.Store({
       try {
         let res = await api.delete("keeps/" + id);
         commit("removeKeep", id);
+        router.push({ name: "dashboard", params: {} });
       } catch (error) {
         console.error(error);
       }
@@ -181,7 +181,6 @@ export default new Vuex.Store({
         // dispatch("getUserVaults");  // REVIEW dispatch getUserVaults may not be needed since it routes to vault details?
         commit("addVault", res.data);
         commit("setActiveVault", res.data);
-        router.push({ name: "vaultdetails", params: { vaultId: res.data.id } });
         return res.data;
       } catch (error) {
         console.error(error);
@@ -199,6 +198,7 @@ export default new Vuex.Store({
       try {
         let res = await api.delete("vaults/" + id);
         commit("removeVault", id);
+        router.push({ name: "dashboard", params: {} });
       } catch (error) {
         console.error(error);
       }
@@ -206,7 +206,6 @@ export default new Vuex.Store({
     //#endregion actions VAULTS
 
     //#region actions VAULTKEEPS
-
     async getUserVKs({ commit, dispatch }) {
       try {
         let res = await api.get("vaultkeeps");
@@ -223,24 +222,27 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    // FIXME this is HTTP 400 request failed.
     async createVK({ commit, dispatch }, newVK) {
       try {
-        debugger;
         let res = await api.post("vaultkeeps", newVK);
         dispatch("getKeepsByVaultId");
         commit("addVK", res.data);
+        router.push({
+          name: "vaultdetails",
+          params: { vaultId: res.data.vaultId },
+        });
         return res.data;
       } catch (error) {
         console.error(error);
       }
     },
-    async deleteVK({ commit, dispatch }, id) {
+    async deleteVK({ commit, dispatch }, vaultkeep) {
       try {
-        let res = await api.delete("vaultkeeps/" + id);
-        // FIXME this doesn't auto refresh the page...
-        dispatch("getKeepsByVaultId");
-        commit("removeVK", id);
+        let vkId = vaultkeep.vaultKeepId;
+        let vaultId = vaultkeep.vaultId;
+        let res = await api.delete("vaultkeeps/" + vkId);
+        commit("removeVK", vkId);
+        dispatch("getKeepsByVaultId", vaultId);
       } catch (error) {
         console.error(error);
       }

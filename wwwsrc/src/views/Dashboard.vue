@@ -203,6 +203,7 @@ export default {
       $("#vaultModal").modal("hide");
       await this.$store.dispatch("createVault", this.newVault);
       this.newVault = {};
+      router.push({ name: "vaultdetails", params: { vaultId: res.data.id } });
     }
   },
   components: {
