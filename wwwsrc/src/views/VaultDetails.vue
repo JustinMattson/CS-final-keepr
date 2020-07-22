@@ -49,8 +49,10 @@ export default {
     await this.$store.dispatch("getKeepsByVaultId", this.$route.params.vaultId);
     // await this.$store.dispatch("getUserVaults");
   },
-  onRouterLeave(to, from, next) {
-    commit("setActiveVault", {});
+  beforeRouteLeave(to, from, next) {
+    if (to.name != "vaultdetails") {
+      this.$store.commit("setActiveVault", {});
+    }
     next();
   },
   computed: {

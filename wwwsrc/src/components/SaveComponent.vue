@@ -9,12 +9,12 @@
 <script>
 export default {
   name: "SaveComponent",
-  props: ["vault", "keep"],
+  props: ["keep", "vault"],
   data() {
     return {
       saveObj: {
-        vaultId: this.vault.id,
-        keepId: this.keep.id
+        keepId: this.keep.id,
+        vaultId: this.vault.id
       }
     };
   },

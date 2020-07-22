@@ -139,8 +139,10 @@ export default {
     await this.$store.dispatch("getKeepById", this.$route.params.keepId);
     await this.$store.dispatch("getUserVaults");
   },
-  onRouterLeave(to, from, next) {
-    commit("setActiveKeep", {});
+  beforeRouteLeave(to, from, next) {
+    if (to.name != "keepdetails") {
+      this.$store.commit("setActiveKeep", {});
+    }
     next();
   },
   computed: {

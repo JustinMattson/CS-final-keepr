@@ -61,7 +61,7 @@ USE keepr252;
 
 
 -- Keeps:
--- DELETE FROM keeps WHERE name LIKE 'PRIVATE%';
+DELETE FROM keeps WHERE name LIKE 'PRIVATE%';
 -- select * from `keepr252`.`keeps` order by id desc limit 100;
 -- SELECT * FROM `keepr252`.`keeps` LIMIT 100;
 -- UPDATE keeps SET userId="vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients" WHERE id = 10;

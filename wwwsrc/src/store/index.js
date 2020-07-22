@@ -224,7 +224,6 @@ export default new Vuex.Store({
     },
     async createVK({ commit, dispatch }, newVK) {
       try {
-        debugger;
         let res = await api.post("vaultkeeps", newVK);
         dispatch("getKeepsByVaultId", newVK.vaultId);
         commit("addVK", res.data);
