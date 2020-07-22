@@ -15,12 +15,8 @@
       <div class="col-12 list-container d-flex justify-content-center">
         <div id="keeps" class="card-columns p-2" style="column-gap: 1rem;">
           <!-- KEEP COMPONENTS BEGIN -->
-          <keep
-            v-for="keep in publicKeeps"
-            :key="keep.id"
-            :keep="keep"
-            v-show="publicKeeps.id == vaultKeeps.keepId"
-          />
+          <keep v-for="keep in keepsByVault" :key="keep.id" :keep="keep" />
+          <!-- v-show="publicKeeps.id == vaultKeeps.keepId && vault.id == vaultKeeps.vaultId" -->
           <!-- KEEP COMPONENTS END -->
         </div>
       </div>
@@ -39,6 +35,8 @@ export default {
     await this.$store.dispatch("getUserVKs");
     await this.$store.dispatch("getVaultById", this.$route.params.vaultId);
     await this.$store.dispatch("getKeeps");
+    await this.$store.dispatch("getKeepsByVaultId", this.$route.params.vaultId);
+    // await this.$store.dispatch("getUserVaults");
   },
   onRouterLeave(to, from, next) {
     commit("setActiveVault", {});
@@ -53,7 +51,13 @@ export default {
     },
     publicKeeps() {
       return this.$store.state.publicKeeps;
+    },
+    keepsByVault() {
+      return this.$store.state.keepsByVault;
     }
+    // myVaults() {
+    //   return this.$store.state.myVaults;
+    // }
   },
   methods: {},
   components: {

@@ -22,12 +22,12 @@
           <small class="text-info">Keeps:</small>
           {{keep.keeps}}
         </p>
-
         <i
           class="fas fa-lock text-warning action"
           @click="toggleVaultList"
           v-show="!keep.isPrivate"
         >&nbsp;Add to Vault</i>
+
         <div id="vaultList" class="pl-3" v-show="showVaultList">
           <saveComponent
             v-for="vault in myVaults"
@@ -57,6 +57,7 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch("getKeepById", this.$route.params.keepId);
+    await this.$store.dispatch("getUserVaults");
   },
   onRouterLeave(to, from, next) {
     commit("setActiveKeep", {});

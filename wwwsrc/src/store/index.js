@@ -21,7 +21,9 @@ export default new Vuex.Store({
     // privateKeeps: [],
     myKeeps: [],
     myVaults: [],
+    userVKs: [],
     vaultKeeps: [],
+    keepsByVault: [],
     activeKeep: {},
     activeVault: {},
   },
@@ -78,11 +80,14 @@ export default new Vuex.Store({
 
     //#region mutation VAULTKEEPS
     setUserVKs(state, userVKs) {
-      state.vaultKeeps = userVKs;
+      state.userVKs = userVKs;
     },
+    setKeepsByVault(state, keepsByVault) {
+      state.keepsByVault = keepsByVault;
+    },
+    // all vaultkeeps
     addVK(state, newVK) {
       state.vaultKeeps.push(newVK);
-      debugger;
     },
     removeVK(state, id) {
       let index = state.vaultKeeps.findIndex((vk) => vk.id == id);
@@ -209,11 +214,18 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
+    async getKeepsByVaultId({ commit, dispatch }, vaultId) {
+      try {
+        let res = await api.get("vaults/" + vaultId + "/keeps");
+        commit("setKeepsByVault", res.data);
+      } catch (error) {
+        console.error(error);
+      }
+    },
 
     async createVK({ commit, dispatch }, newVK) {
       try {
         let res = await api.post("vaultkeeps", newVK);
-        debugger;
         commit("addVK", res.data);
         return res.data;
       } catch (error) {
@@ -223,6 +235,8 @@ export default new Vuex.Store({
     async deleteVK({ commit, dispatch }, id) {
       try {
         let res = await api.delete("vaultkeeps/" + id);
+        // FIXME this doesn't auto refresh the page...
+        dispatch("getKeepsByVaultId");
         commit("removeVK", id);
       } catch (error) {
         console.error(error);

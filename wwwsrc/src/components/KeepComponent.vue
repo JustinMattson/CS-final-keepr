@@ -22,6 +22,12 @@
               @click.stop.prevent="deleteKeep"
             ></i>
             <i
+              class="fas fa-eraser text-warning action"
+              v-show="keep.vaultKeepId != null"
+              title="Remove Keep from Vault"
+              @click.stop.prevent="deleteVaultKeep"
+            ></i>
+            <i
               class="fas fa-lock-open action"
               title="Set Public"
               v-show="keep.isPrivate == true"
@@ -57,6 +63,26 @@ export default {
   methods: {
     addKeepToVault() {
       // this.$store.dispatch("createVaultKeep")
+    },
+    deleteVaultKeep() {
+      swal({
+        title: "Are you sure?",
+        text:
+          "Click 'Ok' to confirm you wish to delete this Keep from this Vault.  This action cannot be undone.",
+        icon: "error",
+        buttons: true,
+        dangerMode: true
+      }).then(removeKeep => {
+        if (removeKeep) {
+          let data = this.$store.dispatch("deleteVK", this.keep.vaultKeepId);
+          swal("Poof! Keep has been removed from Vault!", {
+            icon: "success"
+          });
+        } else {
+          swal("Delete cancelled");
+        }
+      });
+      this.$store.dispatch("deleteVK", this.keep.vaultKeepId);
     },
     publish() {
       swal({
