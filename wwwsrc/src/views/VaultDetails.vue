@@ -43,10 +43,11 @@ export default {
     return {};
   },
   async mounted() {
-    await this.$store.dispatch("getUserVKs");
     await this.$store.dispatch("getVaultById", this.$route.params.vaultId);
-    await this.$store.dispatch("getKeeps");
     await this.$store.dispatch("getKeepsByVaultId", this.$route.params.vaultId);
+    // below moved to store/index.js
+    // await this.$store.dispatch("getUserVKs");
+    // await this.$store.dispatch("getKeeps");
     // await this.$store.dispatch("getUserVaults");
   },
   beforeRouteLeave(to, from, next) {

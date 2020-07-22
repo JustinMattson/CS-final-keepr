@@ -61,8 +61,15 @@ USE keepr252;
 
 
 -- Keeps:
-DELETE FROM keeps WHERE name LIKE 'PRIVATE%';
+-- DELETE FROM keeps WHERE name LIKE 'PRIVATE%';
+-- UPDATE keeps SET views = views + 1 WHERE id = 235;
+
+--   UPDATE keeps
+--   SET keeps = (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = 233)
+--   WHERE id = 233;
+
 -- select * from `keepr252`.`keeps` order by id desc limit 100;
+
 -- SELECT * FROM `keepr252`.`keeps` LIMIT 100;
 -- UPDATE keeps SET userId="vraY84SbrIwTT3dUevCymVza5Xl47kLc@clients" WHERE id = 10;
 -- {
@@ -94,8 +101,8 @@ DELETE FROM keeps WHERE name LIKE 'PRIVATE%';
 -- }
 
 -- Vaults:
-DELETE FROM vaults WHERE name LIKE '%VAULT%';
-SELECT * FROM `keepr252`.`vaults` LIMIT 100;
+-- DELETE FROM vaults WHERE name LIKE '%VAULT%';
+-- SELECT * FROM `keepr252`.`vaults` LIMIT 100;
 -- UPDATE vaults SET userId="vraY84SbrI@clients" WHERE id = 22;
 -- {
 --     "id": 9,
@@ -126,6 +133,8 @@ SELECT * FROM `keepr252`.`vaults` LIMIT 100;
 -- DELETE FROM vaultkeeps WHERE id > 22 && id < 60;
 -- DELETE FROM keeps;
 -- delete from vaults;
+-- SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = 222;
+SELECT * FROM `keepr252`.`vaultkeeps` WHERE keepId = 222;
 -- SELECT * FROM `keepr252`.`vaultkeeps` ORDER BY id DESC LIMIT 100 ;
 -- select * from `keepr252`.`vaults` order by id desc LIMIT 100;
 -- SELECT * FROM `keepr252`. `vaultkeeps` WHERE userId = "dont trust the front end";

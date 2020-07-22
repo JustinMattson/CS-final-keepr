@@ -78,27 +78,6 @@
           @click="toggleVaultList"
           v-show="!keep.isPrivate && $auth.isAuthenticated"
         >&nbsp;Add to Vault</i>
-        <i
-          class="fas fa-lock-open action"
-          title="Set Public"
-          v-show="keep.isPrivate == true"
-          @click.stop.prevent="publish"
-        >
-          <small>&nbsp;Publish Keep</small>
-        </i>
-
-        <br />
-        <i
-          class="far fa-trash-alt text-danger action"
-          v-show="keep.isPrivate == true"
-          title="Delete Keep"
-          @click.stop.prevent="deleteKeep"
-        >
-          <small>&nbsp;Delete Keep</small>
-        </i>
-
-        <br />
-
         <div id="vaultList" class="pl-3" v-show="showVaultList">
           <saveComponent
             v-for="vault in myVaults"
@@ -114,6 +93,24 @@
           data-target="#vaultModal"
           v-if="$auth.isAuthenticated && showVaultList"
         >Add Vault</button>
+        <i
+          class="fas fa-lock-open action"
+          title="Set Public"
+          v-show="keep.isPrivate == true"
+          @click.stop.prevent="publish"
+        >
+          <small>&nbsp;Publish Keep</small>
+        </i>
+        <br />
+        <i
+          class="far fa-trash-alt text-danger action"
+          v-show="keep.isPrivate == true"
+          title="Delete Keep"
+          @click.stop.prevent="deleteKeep"
+        >
+          <small>&nbsp;Delete Keep</small>
+        </i>
+        <br />
       </div>
     </div>
     <div class="col-12">
@@ -137,7 +134,6 @@ export default {
   },
   async mounted() {
     await this.$store.dispatch("getKeepById", this.$route.params.keepId);
-    await this.$store.dispatch("getUserVaults");
   },
   beforeRouteLeave(to, from, next) {
     if (to.name != "keepdetails") {

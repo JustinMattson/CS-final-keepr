@@ -97,8 +97,14 @@ export default new Vuex.Store({
   },
 
   actions: {
-    setBearer({}, bearer) {
+    setBearer({ dispatch }, bearer) {
       api.defaults.headers.authorization = bearer;
+      dispatch("getUserVaults");
+      dispatch("getUserKeeps");
+      dispatch("getUserVKs");
+      // dispatch("getVaultById", this.$route.params.vaultId);
+      dispatch("getKeeps");
+      // dispatch("getKeepsByVaultId", this.$route.params.vaultId);
     },
     resetBearer() {
       api.defaults.headers.authorization = "";
@@ -243,6 +249,7 @@ export default new Vuex.Store({
         let res = await api.delete("vaultkeeps/" + vkId);
         commit("removeVK", vkId);
         dispatch("getKeepsByVaultId", vaultId);
+        debugger;
       } catch (error) {
         console.error(error);
       }

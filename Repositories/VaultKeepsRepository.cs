@@ -57,6 +57,11 @@ namespace Keepr.Repositories
         (vaultId, keepId, userId)
       VALUES
         (@vaultId, @KeepId, @UserId);
+      
+      UPDATE keeps
+      SET keeps = (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = @keepId)
+      WHERE id = @keepId;
+
       SELECT LAST_INSERT_ID();";
       newVaultKeep.id = _db.ExecuteScalar<int>(sql, newVaultKeep);
       return newVaultKeep;
@@ -64,9 +69,17 @@ namespace Keepr.Repositories
 
     internal void Delete(int id)
     {
-      string sql = "DELETE FROM VaultKeeps WHERE id = @Id";
+      // FIXME when this executes, it updates the database, but the 
+      // home view doesn't reflect the keep being removed from a vault.
+      string sql = @"
+      DELETE FROM VaultKeeps WHERE id = @Id;
+
+      UPDATE keeps
+      SET keeps = (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = @id)
+      WHERE id = @id;
+      ";
       _db.Execute(sql, new { id });
-      // FIXME this should probably return something!
+      // REVIEW this should probably return something!?
     }
 
     // public IEnumerable<VaultKeep> GetKeepsByVaultId(int id)

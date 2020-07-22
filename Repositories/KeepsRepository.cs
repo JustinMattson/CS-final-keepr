@@ -29,7 +29,15 @@ namespace Keepr.Repositories
 
     internal Keep GetKeepById(int id)
     {
-      string sql = "SELECT * FROM keeps WHERE id = @id;";
+      string sql = @"
+      UPDATE keeps SET views = views + 1 WHERE id = @id;
+      
+      UPDATE keeps
+      SET keeps = (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = @id)
+      WHERE id = @id;
+
+      SELECT * FROM keeps WHERE id = @id;
+      ";
       return _db.QueryFirstOrDefault<Keep>(sql, new { id });
     }
 
@@ -40,6 +48,7 @@ namespace Keepr.Repositories
       (name, description, userId, img, isPrivate, views, shares, keeps)
       VALUES
       (@Name, @Description, @UserId, @img, @isPrivate, @Views, @shares, @Keeps);
+
       SELECT LAST_INSERT_ID();";
       KeepData.Id = _db.ExecuteScalar<int>(sql, KeepData);
       return KeepData;
@@ -59,6 +68,7 @@ namespace Keepr.Repositories
         shares = @Shares,
         keeps = @Keeps
       WHERE id = @Id;
+      
       SELECT * FROM keeps WHERE id = @Id;";
       return _db.QueryFirstOrDefault<Keep>(sql, keepToUpdate);
     }
@@ -67,7 +77,9 @@ namespace Keepr.Repositories
     {
       // User/Author validated in service
       // Just need to make sure the Keep != private.
-      string sql = "DELETE FROM keeps WHERE id = @id;";// AND isPrivate = 1;";
+      string sql = @"
+      DELETE FROM keeps WHERE id = @id;
+      ";// AND isPrivate = 1;";
       int affectedRows = _db.Execute(sql, new { id, userId });
       return affectedRows == 1;
     }

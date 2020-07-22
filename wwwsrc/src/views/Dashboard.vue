@@ -165,11 +165,7 @@ export default {
       newVault: {}
     };
   },
-  async mounted() {
-    // this.$store.state.vaults;
-    await this.$store.dispatch("getUserKeeps");
-    await this.$store.dispatch("getUserVaults");
-  },
+  mounted() {},
   computed: {
     myKeeps() {
       return this.$store.state.myKeeps;

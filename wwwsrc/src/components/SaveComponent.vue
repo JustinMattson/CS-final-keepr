@@ -10,18 +10,13 @@
 export default {
   name: "SaveComponent",
   props: ["keep", "vault"],
-  data() {
-    return {
-      saveObj: {
-        keepId: this.keep.id,
-        vaultId: this.vault.id
-      }
-    };
-  },
   computed: {},
   methods: {
     save() {
-      this.$store.dispatch("createVK", this.saveObj);
+      this.$store.dispatch("createVK", {
+        keepId: this.keep.id,
+        vaultId: this.vault.id
+      });
     }
   },
   components: {}
