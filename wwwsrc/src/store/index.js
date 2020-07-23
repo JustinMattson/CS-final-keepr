@@ -246,8 +246,8 @@ export default new Vuex.Store({
         let vkId = vaultkeep.vaultKeepId;
         let vaultId = vaultkeep.vaultId;
         let res = await api.delete("vaultkeeps/" + vkId);
-        commit("removeVK", vkId);
-        dispatch("getKeepsByVaultId", vaultId);
+        commit("removeVK", vkId); // FIXME this doesn't update the keep count on Keep Component
+        dispatch("getKeepsByVaultId", vaultId); // FIXME this doesn't update the keep count on Keep Component
         debugger;
       } catch (error) {
         console.error(error);
