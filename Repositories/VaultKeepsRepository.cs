@@ -71,12 +71,13 @@ namespace Keepr.Repositories
     {
       // FIXME when this executes, it updates the database, but the 
       // home view doesn't reflect the keep being removed from a vault.
+      // duplicate the create with a return type?
       string sql = @"
       DELETE FROM VaultKeeps WHERE id = @Id;
 
       UPDATE keeps
-      SET keeps = (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = @id)
-      WHERE id = @id;
+      SET keeps = (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = @Id)
+      WHERE id = @Id;
       ";
       _db.Execute(sql, new { id });
       // REVIEW this should probably return something!?
