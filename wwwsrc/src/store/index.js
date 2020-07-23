@@ -18,7 +18,6 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     publicKeeps: [],
-    // privateKeeps: [],
     myKeeps: [],
     myVaults: [],
     userVKs: [],
@@ -32,9 +31,6 @@ export default new Vuex.Store({
     setPublicKeeps(state, keeps) {
       state.publicKeeps = keeps;
     },
-    // setPrivateKeeps(state, keeps) {
-    //   state.privateKeeps = keeps;
-    // },
     setUserKeeps(state, keeps) {
       state.myKeeps = keeps;
     },
@@ -52,10 +48,17 @@ export default new Vuex.Store({
       let foundKeep = state.myKeeps.find((k) => k.id == update.id);
       foundKeep = update;
     },
-    // updatePrivateKeep(state, update) {
-    //   let foundKeep = state.privateKeeps.find((k) => k.id == update.id);
-    //   foundKeep = update;
-    // },
+    updateKeepCount(state, keep) {
+      let index = 0;
+      index = state.publicKeeps.findIndex((k) => k.id == keep.id);
+      state.publicKeeps.splice(index, 1);
+      state.publicKeeps.push(keep);
+      debugger;
+      index = state.myKeeps.findIndex((k) => k.id == keep.id);
+      state.myKeeps.splice(index, 1);
+      state.myKeeps.push(keep);
+      debugger;
+    },
     removeKeep(state, id) {
       let index = state.myKeeps.findIndex((k) => k.id == id);
       state.myKeeps.splice(index, 1);
@@ -172,6 +175,7 @@ export default new Vuex.Store({
       }
     },
     //#endregion actions KEEPS
+
     //#region actions VAULTS
     async getUserVaults({ commit, dispatch }) {
       try {
@@ -241,14 +245,21 @@ export default new Vuex.Store({
         console.error(error);
       }
     },
-    async deleteVK({ commit, dispatch }, vaultkeep) {
+    async deleteVK({ commit, dispatch }, keepVM) {
       try {
-        let vkId = vaultkeep.vaultKeepId;
-        let vaultId = vaultkeep.vaultId;
-        let res = await api.delete("vaultkeeps/" + vkId);
-        commit("removeVK", vkId); // FIXME this doesn't update the keep count on Keep Component
-        dispatch("getKeepsByVaultId", vaultId); // FIXME this doesn't update the keep count on Keep Component
-        debugger;
+        let res = await api.delete("vaultkeeps/" + keepVM.vaultKeepId, keepVM);
+        commit("removeVK", keepVM.vaultKeepId); // NOTE: this simply deletes VaultKeep from store.
+        keepVM.keeps -= 1;
+        // NOTE: just updating keep.keeps is not significant to cause page refresh
+        // To force the keep count to render change, splice and add back to store.
+        commit("updateKeepCount", keepVM);
+        if (keepVM.keeps < 1) {
+          router.push({
+            name: "dashboard",
+            params: {},
+          });
+        }
+        dispatch("getKeepsByVaultId", keepVM.vaultId); // Required to render the removed Keep
       } catch (error) {
         console.error(error);
       }

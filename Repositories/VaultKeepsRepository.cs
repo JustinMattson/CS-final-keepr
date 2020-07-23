@@ -76,8 +76,9 @@ namespace Keepr.Repositories
       DELETE FROM VaultKeeps WHERE id = @Id;
 
       UPDATE keeps
-      SET keeps = (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = @Id)
-      WHERE id = @Id;
+      SET keeps = 
+      (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = @Id))
+      WHERE id = (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = @Id);
       ";
       _db.Execute(sql, new { id });
       // REVIEW this should probably return something!?
