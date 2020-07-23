@@ -2,6 +2,7 @@
   <div class="vaultdetails container-fluid">
     <div class="row">
       <div class="col-12">
+        <!-- FIXME add a form to edit the Vault details -->
         <h1>{{vault.name}}</h1>
         <!-- Vault Name: {{vault.name}}
         <br />-->
@@ -68,7 +69,7 @@ export default {
     },
     keepsByVault() {
       return this.$store.state.keepsByVault;
-    }
+    },
     // myVaults() {
     //   return this.$store.state.myVaults;
     // }
@@ -81,25 +82,25 @@ export default {
           "Click 'Ok' to confirm you wish to delete this Vault.  This action cannot be undone.",
         icon: "error",
         buttons: true,
-        dangerMode: true
-      }).then(removeVault => {
+        dangerMode: true,
+      }).then((removeVault) => {
         if (removeVault) {
           let data = this.$store.dispatch(
             "deleteVault",
             this.$route.params.vaultId
           );
           swal("Poof! Vault has been deleted!", {
-            icon: "success"
+            icon: "success",
           });
         } else {
           swal("Delete cancelled");
         }
       });
-    }
+    },
   },
   components: {
-    Keep
-  }
+    Keep,
+  },
 };
 </script>
 

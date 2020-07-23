@@ -5,6 +5,7 @@
       <div class="col-12 col-md-6 py-3">
         <img class="card-img" :src="keep.img" />
       </div>
+      <!-- FIXME add a form to edit the Keep details -->
       <div class="col-12 col-md-6 py-3">
         <small class="text-info">Name:</small>
         {{keep.name}}
@@ -129,7 +130,7 @@ export default {
   data() {
     return {
       showVaultList: false,
-      newVault: {}
+      newVault: {},
     };
   },
   async mounted() {
@@ -147,7 +148,7 @@ export default {
     },
     myVaults() {
       return this.$store.state.myVaults;
-    }
+    },
   },
   methods: {
     toggleVaultList() {
@@ -160,13 +161,13 @@ export default {
           "Click 'Ok' to confirm you wish to publish this Keep.  This action cannot be undone.",
         icon: "warning",
         buttons: true,
-        dangerMode: true
-      }).then(update => {
+        dangerMode: true,
+      }).then((update) => {
         if (update) {
           this.keep.isPrivate = false;
           let data = this.$store.dispatch("editKeep", this.keep);
           swal("Poof! Your Keep has been published!", {
-            icon: "success"
+            icon: "success",
           });
           // this.editKeep = false;
         } else {
@@ -181,12 +182,12 @@ export default {
           "Click 'Ok' to confirm you wish to delete this Keep.  This action cannot be undone.",
         icon: "error",
         buttons: true,
-        dangerMode: true
-      }).then(deleteMe => {
+        dangerMode: true,
+      }).then((deleteMe) => {
         if (deleteMe) {
           let data = this.$store.dispatch("deleteKeep", this.keep.id);
           swal("Poof! Your Keep has been removed!", {
-            icon: "success"
+            icon: "success",
           });
           // this.editKeep = false;
         } else {
@@ -199,11 +200,11 @@ export default {
       await this.$store.dispatch("createVault", this.newVault);
       this.newVault = {};
       await this.$store.dispatch("getUserVaults");
-    }
+    },
   },
   components: {
-    SaveComponent
-  }
+    SaveComponent,
+  },
 };
 </script>
 
