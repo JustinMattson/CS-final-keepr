@@ -162,12 +162,41 @@ USE keepr252;
       -- WHERE id = 241;
 
 -- TESTING
+  -- delete VK Id
 
+  -- UPDATE keeps
+  -- SET keeps = 
+  --   (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = 
+  --     (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = @Id))
+  -- WHERE id = (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = @Id);
+
+
+-- @Id = 308
 --   UPDATE keeps
 --   SET keeps = 
---  (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = @Id))
---   WHERE id = (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = @Id);
+--      NumKeeps in VK where 
+          -- Keep ID = 241
+--   WHERE id = (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = 308);
 
 
-SELECT * FROM `keepr252`.`vaultkeeps` WHERE keepId = 241;
--- (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = @Id)
+-- SELECT * FROM `keepr252`.`vaultkeeps` WHERE keepId = 241;
+-- SELECT * FROM `keepr252`.`keeps` WHERE id = 241;
+
+-- SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = 241;
+-- SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = 308;
+
+
+-- PREVENT DUPLICATE VAULTKEEPS
+--  SELECT * FROM `keepr252`.`vaultkeeps` ORDER BY id DESC LIMIT 100
+-- SELECT
+--   userId, COUNT(userId),
+--   vaultId, COUNT(vaultId),
+--   keepId, COUNT(keepId)
+-- FROM
+--   vaultkeeps
+-- GROUP BY
+--   vaultId,
+--   keepId
+-- HAVING COUNT(userId) > 1
+--   AND COUNT(vaultId) > 1
+--   AND COUNT(keepId) > 1;

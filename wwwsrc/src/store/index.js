@@ -53,11 +53,12 @@ export default new Vuex.Store({
       index = state.publicKeeps.findIndex((k) => k.id == keep.id);
       state.publicKeeps.splice(index, 1);
       state.publicKeeps.push(keep);
-      debugger;
       index = state.myKeeps.findIndex((k) => k.id == keep.id);
       state.myKeeps.splice(index, 1);
       state.myKeeps.push(keep);
-      debugger;
+      index = state.keepsByVault.findIndex((k) => k.id == keep.id);
+      state.keepsByVault.splice(index, 1);
+      state.keepsByVault.push(keep);
     },
     removeKeep(state, id) {
       let index = state.myKeeps.findIndex((k) => k.id == id);
@@ -248,10 +249,10 @@ export default new Vuex.Store({
     async deleteVK({ commit, dispatch }, keepVM) {
       try {
         let res = await api.delete("vaultkeeps/" + keepVM.vaultKeepId, keepVM);
-        commit("removeVK", keepVM.vaultKeepId); // NOTE: this simply deletes VaultKeep from store.
+        // NOTE: this simply deletes VaultKeep from store.
+        commit("removeVK", keepVM.vaultKeepId);
+        // NOTE: just updating keep.keeps is not significant to cause page refresh. To force the keep count to render change, splice and add back to store.
         keepVM.keeps -= 1;
-        // NOTE: just updating keep.keeps is not significant to cause page refresh
-        // To force the keep count to render change, splice and add back to store.
         commit("updateKeepCount", keepVM);
         if (keepVM.keeps < 1) {
           router.push({

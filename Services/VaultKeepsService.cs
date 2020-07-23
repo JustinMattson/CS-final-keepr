@@ -52,6 +52,7 @@ namespace Keepr.Services
 
     public VaultKeep Create(VaultKeep newVaultKeep)
     {
+      // TODO prevent duplicates from being created.
       return _repo.Create(newVaultKeep);
       // int id = _repo.Create(newVaultKeep);
       // newVaultKeep.id = id;

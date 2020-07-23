@@ -53,6 +53,7 @@ export default {
   beforeRouteLeave(to, from, next) {
     if (to.name != "vaultdetails") {
       this.$store.commit("setActiveVault", {});
+      this.$store.commit("keepsByVault", []);
     }
     next();
   },

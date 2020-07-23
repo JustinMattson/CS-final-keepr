@@ -77,7 +77,8 @@ namespace Keepr.Repositories
 
       UPDATE keeps
       SET keeps = 
-      (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = @Id))
+        (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = 
+          (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = @Id))
       WHERE id = (SELECT keepId FROM `keepr252`.`vaultkeeps` WHERE id = @Id);
       ";
       _db.Execute(sql, new { id });
