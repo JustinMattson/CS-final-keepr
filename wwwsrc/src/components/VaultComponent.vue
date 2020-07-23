@@ -1,7 +1,7 @@
 <template>
   <div class="vault container p-0">
     <!-- VAULT TEMPLATE -->
-    <!-- FIXME Router Link text-decoration:none -->
+    <!-- TODO Router Link text-decoration:none -->
     <router-link :to="{ name: 'vaultdetails', params: { vaultId: vault.id } }">
       <div class="card text-shadow border-warning mb-3" style="max-width: 18rem;">
         <div class="card-body p-0">
@@ -53,22 +53,22 @@ export default {
           "Click 'Ok' to confirm you wish to delete this Vault.  This action cannot be undone.",
         icon: "warning",
         buttons: true,
-        dangerMode: true
-      }).then(deleteMe => {
+        dangerMode: true,
+      }).then((deleteMe) => {
         if (deleteMe) {
           let data = this.$store.dispatch("deleteVault", this.vault.id);
           swal("Poof! Your Vault has been removed!", {
-            icon: "success"
+            icon: "success",
           });
           // this.editVault = false;
         } else {
           swal("Delete cancelled");
         }
       });
-    }
+    },
   },
 
-  components: {}
+  components: {},
 };
 </script>
 

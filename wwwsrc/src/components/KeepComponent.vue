@@ -1,7 +1,7 @@
 <template>
   <div class="keep container p-0">
     <!-- KEEP TEMPLATE -->
-    <!-- FIXME Router Link text-decoration:none -->
+    <!-- TODO Router Link text-decoration:none -->
     <router-link :to="{ name: 'keepdetails', params: { keepId: keep.id } }">
       <div class="card text-shadow border-info mb-3" style="max-width: 18rem;">
         <div class="card-body p-0">
@@ -35,8 +35,6 @@
             ></i>
 
             <small class="card-text text-muted">kId: {{ keep.id }}</small>
-            <!-- TODO Save Keep Link within router -->
-            <!-- @click="addKeepToVault" -->
             <i
               class="fas fa-heart text-danger action"
               title="Add to Vault"
@@ -71,13 +69,13 @@ export default {
           "Click 'Ok' to confirm you wish to remove this Keep from this Vault.  This action cannot be undone.",
         icon: "error",
         buttons: true,
-        dangerMode: true
-      }).then(removeKeep => {
+        dangerMode: true,
+      }).then((removeKeep) => {
         if (removeKeep) {
           this.keep.vaultId = this.$route.params.vaultId;
           let data = this.$store.dispatch("deleteVK", this.keep);
           swal("Poof! Keep has been removed from Vault!", {
-            icon: "success"
+            icon: "success",
           });
         } else {
           swal("Removing Keep from Vault cancelled.");
@@ -91,13 +89,13 @@ export default {
           "Click 'Ok' to confirm you wish to publish this Keep.  This action cannot be undone.",
         icon: "warning",
         buttons: true,
-        dangerMode: true
-      }).then(update => {
+        dangerMode: true,
+      }).then((update) => {
         if (update) {
           this.keep.isPrivate = false;
           let data = this.$store.dispatch("editKeep", this.keep);
           swal("Poof! Your Keep has been published!", {
-            icon: "success"
+            icon: "success",
           });
           // this.editKeep = false;
         } else {
@@ -112,21 +110,21 @@ export default {
           "Click 'Ok' to confirm you wish to delete this Keep.  This action cannot be undone.",
         icon: "error",
         buttons: true,
-        dangerMode: true
-      }).then(deleteMe => {
+        dangerMode: true,
+      }).then((deleteMe) => {
         if (deleteMe) {
           let data = this.$store.dispatch("deleteKeep", this.keep.id);
           swal("Poof! Your Keep has been removed!", {
-            icon: "success"
+            icon: "success",
           });
           // this.editKeep = false;
         } else {
           swal("Delete cancelled");
         }
       });
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
 

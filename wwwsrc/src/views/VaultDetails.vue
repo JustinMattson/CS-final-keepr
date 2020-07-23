@@ -2,13 +2,12 @@
   <div class="vaultdetails container-fluid">
     <div class="row">
       <div class="col-12">
-        <!-- FIXME add a form to edit the Vault details -->
+        <!-- TODO insert means to edit Vault info -->
         <h1>{{vault.name}}</h1>
         <!-- Vault Name: {{vault.name}}
         <br />-->
         <span class="text-muted">Vault Description:</span>
         {{vault.description}}
-        <!-- TODO insert means to edit vault info -->
         <br />
 
         <small

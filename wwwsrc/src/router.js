@@ -36,18 +36,5 @@ export default new Router({
       component: VaultDetails,
       beforeEnter: authGuard,
     },
-    // REVIEW if time permits, make a separate vue for vaults and keeps.
-    // {
-    //   path: "/dashboard/vaults",
-    //   name: "myVaults",
-    //   component: Dashboard,
-    //   beforeEnter: authGuard,
-    // },
-    // {
-    //   path: "/dashboard/keeps",
-    //   name: "myKeeps",
-    //   component: Dashboard,
-    //   beforeEnter: authGuard,
-    // },
   ],
 });

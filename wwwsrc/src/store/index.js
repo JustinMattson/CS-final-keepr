@@ -184,7 +184,6 @@ export default new Vuex.Store({
     async createVault({ commit, dispatch }, newVault) {
       try {
         let res = await api.post("vaults", newVault);
-        // dispatch("getUserVaults");  // REVIEW dispatch getUserVaults may not be needed since it routes to vault details?
         commit("addVault", res.data);
         commit("setActiveVault", res.data);
         return res.data;

@@ -5,7 +5,7 @@
       <div class="col-12 col-md-6 py-3">
         <img class="card-img" :src="keep.img" />
       </div>
-      <!-- FIXME add a form to edit the Keep details -->
+      <!-- TODO insert means to edit Keep info -->
       <div class="col-12 col-md-6 py-3">
         <small class="text-info">Name:</small>
         {{keep.name}}
