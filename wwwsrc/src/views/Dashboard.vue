@@ -162,17 +162,19 @@ export default {
       showKeeps: false,
       showVaults: false,
       newKeep: {},
-      newVault: {}
+      newVault: {},
     };
   },
-  mounted() {},
+  mounted() {
+    this.$store.dispatch("getUserKeeps");
+  },
   computed: {
     myKeeps() {
       return this.$store.state.myKeeps;
     },
     myVaults() {
       return this.$store.state.myVaults;
-    }
+    },
   },
   methods: {
     toggleKeeps() {
@@ -200,12 +202,12 @@ export default {
       await this.$store.dispatch("createVault", this.newVault);
       this.newVault = {};
       router.push({ name: "vaultdetails", params: { vaultId: res.data.id } });
-    }
+    },
   },
   components: {
     Keep,
-    Vault
-  }
+    Vault,
+  },
 };
 </script>
 

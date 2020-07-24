@@ -32,18 +32,24 @@ namespace Keepr.Repositories
 
     internal IEnumerable<Keep> GetKeepsByUser(string userId)
     {
-      string sql = "SELECT * FROM keeps WHERE userId = @userId;";
+      string sql = @"
+        SELECT 
+          * 
+        FROM keeps k
+          LEFT JOIN (
+            SELECT keepId,COUNT(*) as keeps
+            FROM `keepr252`.`vaultkeeps` 
+            GROUP BY keepId) vk ON k.id = vk.keepId
+        WHERE userId = @userId;";
       return _db.Query<Keep>(sql, new { userId });
     }
 
     internal Keep GetKeepById(int id)
     {
-      // NOTE below is no longer necessary now keeps are counted by the server.
-      // UPDATE keeps
-      // SET keeps = (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = @id)
-      // WHERE id = @id;
       string sql = @"
-      UPDATE keeps SET views = views + 1 WHERE id = @id;
+      UPDATE keeps
+      SET keeps = (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = @id)
+      WHERE id = @id;
       
       SELECT * FROM keeps WHERE id = @id;
       ";

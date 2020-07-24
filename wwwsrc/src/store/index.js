@@ -51,18 +51,16 @@ export default new Vuex.Store({
     //REVIEW the keep counts are mostly a joke now that they are
     //counted when via geting the viewmodels. Possible to delete these?
     updateKeepCount(state, keep) {
-      let index = 0;
-      // FIXME publicKeeps get reset to something other than zero when decremented to zero.
-      index = state.publicKeeps.findIndex((k) => k.id == keep.id);
-      debugger;
-      state.publicKeeps.splice(index, 1);
-      state.publicKeeps.push(keep);
-      index = state.myKeeps.findIndex((k) => k.id == keep.id);
-      state.myKeeps.splice(index, 1);
-      state.myKeeps.push(keep);
-      index = state.keepsByVault.findIndex((k) => k.id == keep.id);
-      state.keepsByVault.splice(index, 1);
-      state.keepsByVault.push(keep);
+      // let index = 0;
+      // index = state.publicKeeps.findIndex((k) => k.id == keep.id);
+      // state.publicKeeps.splice(index, 1);
+      // state.publicKeeps.push(keep);
+      // index = state.myKeeps.findIndex((k) => k.id == keep.id);
+      // state.myKeeps.splice(index, 1);
+      // state.myKeeps.push(keep);
+      // index = state.keepsByVault.findIndex((k) => k.id == keep.id);
+      // state.keepsByVault.splice(index, 1);
+      // state.keepsByVault.push(keep);
     },
     removeKeep(state, id) {
       let index = state.myKeeps.findIndex((k) => k.id == id);
@@ -229,7 +227,6 @@ export default new Vuex.Store({
     async getKeepsByVaultId({ commit, dispatch }, vaultId) {
       try {
         let res = await api.get("vaults/" + vaultId + "/keeps");
-        debugger;
         commit("setKeepsByVault", res.data);
       } catch (error) {
         console.error(error);
@@ -260,7 +257,7 @@ export default new Vuex.Store({
         // REVIEW MyKeeps seems accurate until reducing from 1 to zero. accurate at zero
         // NOTE Public seems accurate until reducing from 1 to zero. other than zero at zero
         // FIXME Active keep also need to be decremented!
-        commit("updateKeepCount", keepVM);
+        // commit("updateKeepCount", keepVM);
         dispatch("getKeepsByVaultId", keepVM.vaultId); // Required to render the removed Keep
         if (keepVM.keeps < 1) {
           router.push({

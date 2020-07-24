@@ -60,38 +60,45 @@ USE keepr252;
 --             GROUP BY keepId) vk ON k.id = vk.keepId
 -- WHERE isPrivate = 0;
 
-
+-- GET KEEPS BY USER
+        SELECT 
+          * 
+        FROM keeps k
+          LEFT JOIN (
+            SELECT keepId,COUNT(*) as keeps
+            FROM `keepr252`.`vaultkeeps` 
+            GROUP BY keepId) vk ON k.id = vk.keepId
+        WHERE userId = "auth0|5ede8f4b56d062001333e194";
 
 --  SELECT 
 --       vk.*
 --  FROM vaultkeeps vk
 --       INNER JOIN keeps k ON k.id = vk.keepId
 --       INNER JOIN vaults v on v.id = vk.vaultId
-
 --  WHERE (vaultId = 112);
 
 -- GET KEEPS BY VAULT with autokeep count
-SELECT
-      vk.id as vaultKeepId,
-      vk.vaultId as vaultId,
-      k.id as keepId,
-      k.userId as userId,
-      k.name as name,
-      k.description as description,
-      k.img as img,
-      k.isPrivate as isPrivate,
-      k.views as views,
-      k.shares as shares,
-      kc.keeps as keeps
-FROM vaultkeeps vk
-      LEFT JOIN (
-            SELECT 
-            keepId,COUNT(*) as keeps
-            FROM `keepr252`.`vaultkeeps` 
-            GROUP BY keepId
-      ) kc ON vk.keepId = kc.keepId
-      INNER JOIN keeps k ON k.id = vk.keepId
-WHERE (vk.vaultID = 102);
+-- SELECT
+--       vk.id as vaultKeepId,
+--       vk.vaultId as vaultId,
+--       k.id as keepId,
+--       k.userId as userId,
+--       k.name as name,
+--       k.description as description,
+--       k.img as img,
+--       k.isPrivate as isPrivate,
+--       k.views as views,
+--       k.shares as shares,
+--       kc.keeps as keeps
+-- FROM vaultkeeps vk
+--       LEFT JOIN (
+--             SELECT 
+--             keepId,COUNT(*) as keeps
+--             FROM `keepr252`.`vaultkeeps` 
+--             GROUP BY keepId
+--       ) kc ON vk.keepId = kc.keepId
+--       INNER JOIN keeps k ON k.id = vk.keepId
+-- WHERE (vk.vaultID = 102);
 
 
 -- -- USE THIS TO CLEAN OUT YOUR DATABASE
@@ -173,7 +180,9 @@ WHERE (vk.vaultID = 102);
 -- SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = 222;
 
 
--- SELECT * FROM `keepr252`.`vaultkeeps` ORDER BY id DESC LIMIT 100 ;
+-- SELECT * FROM `keepr252`.`vaultkeeps` ORDER BY keepId ASC LIMIT 100 ;
+
+
 -- select * from `keepr252`.`vaults` order by id desc LIMIT 100;
 -- SELECT * FROM `keepr252`. `vaultkeeps` WHERE userId = "dont trust the front end";
 
