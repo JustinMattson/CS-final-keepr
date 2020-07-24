@@ -48,20 +48,6 @@ export default new Vuex.Store({
       let foundKeep = state.myKeeps.find((k) => k.id == update.id);
       foundKeep = update;
     },
-    //REVIEW the keep counts are mostly a joke now that they are
-    //counted when via geting the viewmodels. Possible to delete these?
-    updateKeepCount(state, keep) {
-      // let index = 0;
-      // index = state.publicKeeps.findIndex((k) => k.id == keep.id);
-      // state.publicKeeps.splice(index, 1);
-      // state.publicKeeps.push(keep);
-      // index = state.myKeeps.findIndex((k) => k.id == keep.id);
-      // state.myKeeps.splice(index, 1);
-      // state.myKeeps.push(keep);
-      // index = state.keepsByVault.findIndex((k) => k.id == keep.id);
-      // state.keepsByVault.splice(index, 1);
-      // state.keepsByVault.push(keep);
-    },
     removeKeep(state, id) {
       let index = state.myKeeps.findIndex((k) => k.id == id);
       state.myKeeps.splice(index, 1);
@@ -249,15 +235,8 @@ export default new Vuex.Store({
     async deleteVK({ commit, dispatch }, keepVM) {
       try {
         let res = await api.delete("vaultkeeps/" + keepVM.vaultKeepId, keepVM);
-        // NOTE: this simply deletes VaultKeep from store.
         commit("removeVK", keepVM.vaultKeepId);
-        // NOTE: just updating keep.keeps is not significant to cause page refresh. To force the keep count to render change, splice and add back to store.
         keepVM.keeps -= 1;
-        // REVIEW KeepsByVault seems accurate until reducing from 1 to zero.  empty at zero
-        // REVIEW MyKeeps seems accurate until reducing from 1 to zero. accurate at zero
-        // NOTE Public seems accurate until reducing from 1 to zero. other than zero at zero
-        // FIXME Active keep also need to be decremented!
-        // commit("updateKeepCount", keepVM);
         dispatch("getKeepsByVaultId", keepVM.vaultId); // Required to render the removed Keep
         if (keepVM.keeps < 1) {
           router.push({
