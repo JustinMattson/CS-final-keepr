@@ -40,14 +40,14 @@ export default new Vuex.Store({
     addKeep(state, newKeep) {
       state.myKeeps.push(newKeep);
     },
-    updatePublicKeep(state, update) {
-      let foundKeep = state.publicKeeps.find((k) => k.id == update.id);
-      foundKeep = update;
-    },
-    updateMyKeep(state, update) {
-      let foundKeep = state.myKeeps.find((k) => k.id == update.id);
-      foundKeep = update;
-    },
+    // updatePublicKeep(state, update) {
+    //   let foundKeep = state.publicKeeps.find((k) => k.id == update.id);
+    //   foundKeep = update;
+    // },
+    // updateMyKeep(state, update) {
+    //   let foundKeep = state.myKeeps.find((k) => k.id == update.id);
+    //   foundKeep = update;
+    // },
     removeKeep(state, id) {
       let index = state.myKeeps.findIndex((k) => k.id == id);
       state.myKeeps.splice(index, 1);
@@ -60,6 +60,11 @@ export default new Vuex.Store({
     },
     addVault(state, newVault) {
       state.myVaults.push(newVault);
+    },
+    updateVault(state, update) {
+      let index = state.myVaults.findIndex((v) => v.id == update.id);
+      state.myVaults.splice(index, 1);
+      state.myVaults.push(update);
     },
     setActiveVault(state, vault) {
       state.activeVault = vault;
@@ -178,6 +183,15 @@ export default new Vuex.Store({
         commit("addVault", res.data);
         commit("setActiveVault", res.data);
         return res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async editVault({ commit, dispatch }, update) {
+      try {
+        let res = await api.put("vaults/" + update.id, update);
+        debugger;
+        commit("updateVault", res.data);
       } catch (error) {
         console.error(error);
       }

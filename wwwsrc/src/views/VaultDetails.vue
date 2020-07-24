@@ -21,7 +21,6 @@
         <div id="keeps" class="card-columns p-2" style="column-gap: 1rem;">
           <!-- KEEP COMPONENTS BEGIN -->
           <keep v-for="keep in keepsByVault" :key="keep.id" :keep="keep" />
-          <!-- v-show="publicKeeps.id == vaultKeeps.keepId && vault.id == vaultKeeps.vaultId" -->
           <!-- KEEP COMPONENTS END -->
         </div>
       </div>
@@ -29,6 +28,26 @@
         <i class="far fa-trash-alt text-danger action" @click="deleteVault"></i>
         <small>&nbsp;Delete Vault</small>
         <br />
+        <i class="fas fa-pencil-alt text-info action" @click="toggleEdit"></i>
+        <small>&nbsp;Edit Vault</small>
+        <p />
+
+        <!-- EDIT VAULT FORM -->
+        <form class="form" @submit.prevent="editVault" v-show="editDetails">
+          Vault Name:
+          <input type="text" v-model="vault.name" style="width:50vw;" />
+          <br />Vault Description:
+          <input type="text" v-model="vault.description" style="width:50vw;" />
+          <br />
+
+          <i
+            type="submit"
+            class="far fa-save text-info fa-2x action shadowtext-shadow"
+            title="Save Changes"
+            @click="updateVault"
+          ></i>
+        </form>
+        <!-- END EDIT VAULT FORM -->
       </div>
     </div>
   </div>
@@ -40,7 +59,9 @@ import swal from "sweetalert";
 export default {
   name: "vaultdetails",
   data() {
-    return {};
+    return {
+      editDetails: false,
+    };
   },
   async mounted() {
     await this.$store.dispatch("getVaultById", this.$route.params.vaultId);
@@ -75,6 +96,13 @@ export default {
     // }
   },
   methods: {
+    updateVault() {
+      this.$store.dispatch("editVault", this.vault);
+      this.editDetails = false;
+    },
+    toggleEdit() {
+      this.editDetails = !this.editDetails;
+    },
     deleteVault() {
       swal({
         title: "Are you sure?",
