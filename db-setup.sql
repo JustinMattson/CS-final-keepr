@@ -45,12 +45,53 @@ USE keepr252;
 
 -- -- USE THIS LINE FOR GET KEEPS BY VAULTID
 -- SELECT 
--- k.*,
--- vk.id as vaultKeepId
+--       k.*,
+--       vk.id as vaultKeepId
 -- FROM vaultkeeps vk
--- INNER JOIN keeps k ON k.id = vk.keepId 
+--       INNER JOIN keeps k ON k.id = vk.keepId 
 -- WHERE (vaultId = @vaultId AND vk.userId = @userId) 
 
+-- SELECT
+--       k.*,vk.keeps
+-- FROM keeps k
+--       LEFT JOIN (
+--         SELECT keepId,COUNT(*) as keeps
+--             FROM `keepr252`.`vaultkeeps` 
+--             GROUP BY keepId) vk ON k.id = vk.keepId
+-- WHERE isPrivate = 0;
+
+
+
+--  SELECT 
+--       vk.*
+--  FROM vaultkeeps vk
+--       INNER JOIN keeps k ON k.id = vk.keepId
+--       INNER JOIN vaults v on v.id = vk.vaultId
+
+--  WHERE (vaultId = 112);
+
+-- GET KEEPS BY VAULT with autokeep count
+SELECT
+      vk.id as vaultKeepId,
+      vk.vaultId as vaultId,
+      k.id as keepId,
+      k.userId as userId,
+      k.name as name,
+      k.description as description,
+      k.img as img,
+      k.isPrivate as isPrivate,
+      k.views as views,
+      k.shares as shares,
+      kc.keeps as keeps
+FROM vaultkeeps vk
+      LEFT JOIN (
+            SELECT 
+            keepId,COUNT(*) as keeps
+            FROM `keepr252`.`vaultkeeps` 
+            GROUP BY keepId
+      ) kc ON vk.keepId = kc.keepId
+      INNER JOIN keeps k ON k.id = vk.keepId
+WHERE (vk.vaultID = 102);
 
 
 -- -- USE THIS TO CLEAN OUT YOUR DATABASE
