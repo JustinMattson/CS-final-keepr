@@ -40,14 +40,15 @@ export default new Vuex.Store({
     addKeep(state, newKeep) {
       state.myKeeps.push(newKeep);
     },
-    // updatePublicKeep(state, update) {
-    //   let foundKeep = state.publicKeeps.find((k) => k.id == update.id);
-    //   foundKeep = update;
-    // },
-    // updateMyKeep(state, update) {
-    //   let foundKeep = state.myKeeps.find((k) => k.id == update.id);
-    //   foundKeep = update;
-    // },
+    updateMyKeep(state, update) {
+      let index = -1;
+      index = state.myKeeps.findIndex((v) => v.id == update.id);
+      state.myKeeps.splice(index, 1);
+      state.myKeeps.push(update);
+      index = state.publicKeeps.findIndex((v) => v.id == update.id);
+      state.publicKeeps.splice(index, 1);
+      state.publicKeeps.push(update);
+    },
     removeKeep(state, id) {
       let index = state.myKeeps.findIndex((k) => k.id == id);
       state.myKeeps.splice(index, 1);
@@ -146,13 +147,9 @@ export default new Vuex.Store({
     },
     async editKeep({ commit, dispatch }, update) {
       try {
-        let id = update.id;
-        let res = await api.put("keeps/" + id, update);
-        if (res.data.isPrivate == false) {
-          dispatch("getKeeps", res.data);
-        } else {
-          commit("updateMyKeep", res.data);
-        }
+        let res = await api.put("keeps/" + update.id, update);
+        debugger;
+        commit("updateMyKeep", res.data);
       } catch (error) {
         console.error(error);
       }
@@ -190,7 +187,6 @@ export default new Vuex.Store({
     async editVault({ commit, dispatch }, update) {
       try {
         let res = await api.put("vaults/" + update.id, update);
-        debugger;
         commit("updateVault", res.data);
       } catch (error) {
         console.error(error);

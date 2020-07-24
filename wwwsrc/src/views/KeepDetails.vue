@@ -112,11 +112,33 @@
           <small>&nbsp;Delete Keep</small>
         </i>
         <br />
+        <div v-show="keep.isPrivate">
+          <i class="fas fa-pencil-alt text-info action" @click="toggleEdit"></i>
+          <small>&nbsp;Edit Keep</small>
+          <p />
+
+          <!-- EDIT VAULT FORM -->
+          <form class="form text-muted" @submit.prevent="editKeep" v-show="editDetails">
+            Keep Name:
+            <input type="text" v-model="keep.name" style="width:100%;" />
+            <br />Keep Description:
+            <input type="text" v-model="keep.description" style="width:100%;" />
+            <br />
+
+            <i
+              type="submit"
+              class="far fa-save text-info fa-2x action shadowtext-shadow"
+              title="Save Changes"
+              @click="updateKeep"
+            ></i>
+          </form>
+          <!-- END EDIT VAULT FORM -->
+        </div>
       </div>
     </div>
     <div class="col-12">
       <p>
-        <small>{{keep}}</small>
+        <small class="text-muted" v-show="keep.isPrivate">{{keep}}</small>
       </p>
     </div>
   </div>
@@ -129,6 +151,7 @@ export default {
   name: "keepdetails",
   data() {
     return {
+      editDetails: false,
       showVaultList: false,
       newVault: {},
     };
@@ -151,6 +174,13 @@ export default {
     },
   },
   methods: {
+    updateKeep() {
+      this.$store.dispatch("editKeep", this.keep);
+      this.editDetails = false;
+    },
+    toggleEdit() {
+      this.editDetails = !this.editDetails;
+    },
     toggleVaultList() {
       this.showVaultList = !this.showVaultList;
     },

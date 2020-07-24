@@ -20,11 +20,11 @@
         </div>
         <div class="card-footer border-warning">
           <span class="d-flex justify-content-between">
-            <i
+            <!-- <i
               class="far fa-trash-alt text-danger"
               title="Delete Vault"
               @click.stop.prevent="deleteVault"
-            ></i>
+            ></i>-->
             <small class="card-text text-muted">vId: {{ vault.id }}</small>
           </span>
         </div>

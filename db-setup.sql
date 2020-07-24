@@ -61,15 +61,17 @@ USE keepr252;
 -- WHERE isPrivate = 0;
 
 -- GET KEEPS BY USER
-        SELECT 
-          * 
-        FROM keeps k
-          LEFT JOIN (
-            SELECT keepId,COUNT(*) as keeps
-            FROM `keepr252`.`vaultkeeps` 
-            GROUP BY keepId) vk ON k.id = vk.keepId
-        WHERE userId = "auth0|5ede8f4b56d062001333e194";
+        -- SELECT 
+        --   * 
+        -- FROM keeps k
+        --   LEFT JOIN (
+        --     SELECT keepId,COUNT(*) as keeps
+        --     FROM `keepr252`.`vaultkeeps` 
+        --     GROUP BY keepId) vk ON k.id = vk.keepId
+        -- WHERE userId = "auth0|5ede8f4b56d062001333e194";
 
+SELECT * FROM keeps WHERE id = 247;
+DELETE FROM keeps WHERE id = 247;
 --  SELECT 
 --       vk.*
 --  FROM vaultkeeps vk

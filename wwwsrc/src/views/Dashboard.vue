@@ -61,7 +61,7 @@
                 <div class="row justify-content-center">
                   <div class="col text-center">
                     <h5>Image (optional):</h5>
-                    <input type="text" placeholder="Image Link" v-model="newKeep.img" />
+                    <input type="text" placeholder="Image Link" required v-model="newKeep.img" />
                   </div>
                 </div>
 

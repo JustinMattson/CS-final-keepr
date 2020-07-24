@@ -9,7 +9,26 @@
         <span class="text-muted">Vault Description:</span>
         {{vault.description}}
         <br />
+        <i class="fas fa-pencil-alt text-info action" @click="toggleEdit"></i>
+        <small>&nbsp;Edit Vault</small>
+        <p />
 
+        <!-- EDIT VAULT FORM -->
+        <form class="form text-muted" @submit.prevent="editVault" v-show="editDetails">
+          Vault Name:
+          <input type="text" v-model="vault.name" style="width:50vw;" />
+          <br />Vault Description:
+          <input type="text" v-model="vault.description" style="width:50vw;" />
+          <br />
+
+          <i
+            type="submit"
+            class="far fa-save text-info fa-2x action shadowtext-shadow"
+            title="Save Changes"
+            @click="updateVault"
+          ></i>
+        </form>
+        <!-- END EDIT VAULT FORM -->
         <small
           class="text-muted"
           v-show="keepsByVault.length < 1"
@@ -28,26 +47,6 @@
         <i class="far fa-trash-alt text-danger action" @click="deleteVault"></i>
         <small>&nbsp;Delete Vault</small>
         <br />
-        <i class="fas fa-pencil-alt text-info action" @click="toggleEdit"></i>
-        <small>&nbsp;Edit Vault</small>
-        <p />
-
-        <!-- EDIT VAULT FORM -->
-        <form class="form" @submit.prevent="editVault" v-show="editDetails">
-          Vault Name:
-          <input type="text" v-model="vault.name" style="width:50vw;" />
-          <br />Vault Description:
-          <input type="text" v-model="vault.description" style="width:50vw;" />
-          <br />
-
-          <i
-            type="submit"
-            class="far fa-save text-info fa-2x action shadowtext-shadow"
-            title="Save Changes"
-            @click="updateVault"
-          ></i>
-        </form>
-        <!-- END EDIT VAULT FORM -->
       </div>
     </div>
   </div>
@@ -91,9 +90,6 @@ export default {
     keepsByVault() {
       return this.$store.state.keepsByVault;
     },
-    // myVaults() {
-    //   return this.$store.state.myVaults;
-    // }
   },
   methods: {
     updateVault() {
