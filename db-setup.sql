@@ -70,8 +70,8 @@ USE keepr252;
         --     GROUP BY keepId) vk ON k.id = vk.keepId
         -- WHERE userId = "auth0|5ede8f4b56d062001333e194";
 
-SELECT * FROM keeps WHERE id = 247;
-DELETE FROM keeps WHERE id = 247;
+SELECT * FROM keeps WHERE id >= 250;
+-- DELETE FROM keeps WHERE id = 247;
 --  SELECT 
 --       vk.*
 --  FROM vaultkeeps vk
@@ -113,6 +113,10 @@ DELETE FROM keeps WHERE id = 247;
 -- Keeps:
 -- DELETE FROM keeps WHERE name LIKE 'PRIVATE%';
 -- UPDATE keeps SET views = views + 1 WHERE id = 235;
+UPDATE keeps SET img='https://photos.app.goo.gl/goYsdDxfHSDXKCTh7' WHERE id = 251;
+
+UPDATE keeps SET isPrivate=1 WHERE id = 251;
+SELECT * FROM keeps WHERE id>=249;
 
 -- select * from `keepr252`.`keeps` order by id desc limit 100;
 
