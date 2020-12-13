@@ -96,7 +96,7 @@
         >Add Vault</button>
         <i
           class="fas fa-lock-open action"
-          title="Set Public"
+          title="publish keep, button"
           v-show="keep.isPrivate == true"
           @click.stop.prevent="publish"
         >
@@ -106,23 +106,25 @@
         <i
           class="far fa-trash-alt text-danger action"
           v-show="keep.isPrivate == true"
-          title="Delete Keep"
+          title="delete keep, button"
           @click.stop.prevent="deleteKeep"
         >
           <small>&nbsp;Delete Keep</small>
         </i>
         <br />
         <div v-show="keep.isPrivate">
-          <i class="fas fa-pencil-alt text-info action" @click="toggleEdit"></i>
+          <i 
+            class="fas fa-pencil-alt text-info action" @click="toggleEdit" title="edit keep, button">
+          </i>
           <small>&nbsp;Edit Keep</small>
           <p />
 
           <!-- EDIT VAULT FORM -->
           <form class="form text-muted" @submit.prevent="editKeep" v-show="editDetails">
             Keep Name:
-            <input type="text" v-model="keep.name" style="width:100%;" />
+            <input type="text" v-model="keep.name" style="width:100%;" title="textbox, editable" />
             <br />Keep Description:
-            <input type="text" v-model="keep.description" style="width:100%;" />
+            <input type="text" v-model="keep.description" style="width:100%;" title="textbox, editable" />
             <br />
 
             <i
