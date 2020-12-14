@@ -2,16 +2,16 @@
   <div class="keep container p-0">
     <!-- KEEP TEMPLATE -->
     <!-- TODO Router Link text-decoration:none -->
-    <router-link :to="{ name: 'keepdetails', params: { keepId: keep.id } }">
+    <router-link :to="{ name: 'keepdetails', params: { keepId: keep.id } }" title="keep, clickable">
       <div class="card text-shadow border-info mb-3" style="max-width: 18rem;">
         <div class="card-body p-0">
           <span class="d-flex justify-content-between card-header border-info">
-            <span class="card-title">Keeps: {{ keep.keeps }}</span>
-            <span class="card-title">Views: {{ keep.views }}</span>
+            <span class="card-title" title="keeps">Keeps: {{ keep.keeps }}</span>
+            <span class="card-title" title="number of views">Views: {{ keep.views }}</span>
           </span>
-          <img class="card-img" :src="keep.img" />
-          <div class="p-2">{{ keep.name }}</div>
-          <div class="p-2">{{ keep.description }}</div>
+          <img class="card-img" :src="keep.img" alt=""/>
+          <div class="p-2" title="keep title">{{ keep.name }}</div>
+          <div class="p-2" title="keep description">{{ keep.description }}</div>
         </div>
         <div class="card-footer border-info">
           <span class="d-flex justify-content-between">
@@ -29,7 +29,7 @@
             ></i>
             <i
               class="fas fa-lock-open action"
-              title="Set Public"
+              title="Publish Keep"
               v-show="keep.isPrivate == true"
               @click.stop.prevent="publish"
             ></i>

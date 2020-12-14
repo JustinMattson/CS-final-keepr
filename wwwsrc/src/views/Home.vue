@@ -16,7 +16,7 @@
     <small class="fixed-bottom">
       Made with
       <i class="far fa-heart text-danger" title="Boise Codeworks" /> by Justin
-      Mattson!
+      Mattson!  <a href="https://www.nvaccess.org/"> - a11y - </a>
     </small>
   </div>
 </template>

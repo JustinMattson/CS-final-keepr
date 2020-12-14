@@ -114,17 +114,19 @@
         <br />
         <div v-show="keep.isPrivate">
           <i 
-            class="fas fa-pencil-alt text-info action" @click="toggleEdit" title="edit keep, button">
+            class="fas fa-pencil-alt text-info action" 
+            title="edit keep, button"
+            @click="toggleEdit" >
+            <small aria-hidden="true">&nbsp;Edit Keep</small>
           </i>
-          <small>&nbsp;Edit Keep</small>
           <p />
 
           <!-- EDIT VAULT FORM -->
           <form class="form text-muted" @submit.prevent="editKeep" v-show="editDetails">
             Keep Name:
-            <input type="text" v-model="keep.name" style="width:100%;" title="textbox, editable" />
+            <input type="text" v-model="keep.name" style="width:100%;" title="textbox" />
             <br />Keep Description:
-            <input type="text" v-model="keep.description" style="width:100%;" title="textbox, editable" />
+            <input type="text" v-model="keep.description" style="width:100%;" title="textbox" />
             <br />
 
             <i
