@@ -256,3 +256,52 @@ SELECT * FROM keeps WHERE id>=249;
 -- HAVING COUNT(userId) > 1
 --   AND COUNT(vaultId) > 1
 --   AND COUNT(keepId) > 1;
+
+
+-- ########## FARKLE ########## -- 
+DROP TABLE farkle;
+CREATE TABLE farkle(
+  -- id INT NOT NULL AUTO_INCREMENT,
+  round INT NOT NULL,
+  player VARCHAR(255) NOT NULL,
+  roll INT DEFAULT 0,
+  round_z INT,
+  roll_z INT DEFAULT 0,
+  round_y INT,
+  roll_y INT DEFAULT 0,
+  round_x INT,
+  roll_x INT DEFAULT 0,
+  farkle_fail INT DEFAULT 0,
+  total INT,
+  PRIMARY KEY (round, player)
+);
+
+SELECT * FROM farkle;
+
+INSERT INTO farkle (round, player, roll, round_z, roll_z, round_y, roll_y,round_x, roll_x, farkle_fail, total
+) VALUES (1, "P1", 100, -1, null, -2, null, -3, null, 0, 0);
+INSERT INTO farkle (round, player, roll, round_z, roll_z, round_y, roll_y,round_x, roll_x, farkle_fail, total
+) VALUES (2, "P1", 200, -1, null, -2, null, -3, null, 0, 0);
+INSERT INTO farkle (round, player, roll, round_z, roll_z, round_y, roll_y,round_x, roll_x, farkle_fail, total
+) VALUES (3, "P1", 300, -1, null, -2, null, -3, null, 0, 0);
+INSERT INTO farkle (round, player, roll, round_z, roll_z, round_y, roll_y,round_x, roll_x, farkle_fail, total
+) VALUES (4, "P1", 400, -1, null, -2, null, -3, null, 0, 0);
+INSERT INTO farkle(round, player, roll, round_z, roll_z, round_y, roll_y,round_x, roll_x, farkle_fail, total
+) VALUES (5, "P1", 500, -1, null, -2, null, -3, null, 0, 0);
+INSERT INTO farkle (round, player, roll, round_z, roll_z, round_y, roll_y,round_x, roll_x, farkle_fail, total
+) VALUES (6, "P1", 600, -1, null, -2, null, -3, null, 0, 0);
+
+SELECT round, roll, roll_z, roll_y, roll_x
+FROM farkle
+WHERE player="P1" AND round =;
+
+DELETE FROM farkle WHERE round > 0;
+
+SELECT * FROM keepr252.farkle;
+
+
+UPDATE farkle SET round_z = 
+--   SELECT roll FROM farkle 
+--   WHERE round = 1 AND player="P1"
+
+WHERE round = 2 AND player="P1";
