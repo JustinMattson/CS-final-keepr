@@ -50,7 +50,11 @@ namespace Keepr.Repositories
       UPDATE keeps
       SET keeps = (SELECT COUNT(*) FROM `keepr252`.`vaultkeeps` WHERE keepId = @id)
       WHERE id = @id;
-      
+
+      UPDATE keeps
+      SET views = views + 1
+      WHERE id = @id;
+
       SELECT * FROM keeps WHERE id = @id;
       ";
       return _db.QueryFirstOrDefault<Keep>(sql, new { id });

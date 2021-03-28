@@ -305,3 +305,6 @@ UPDATE farkle SET round_z =
 --   WHERE round = 1 AND player="P1"
 
 WHERE round = 2 AND player="P1";
+
+
+(SELECT views FROM `keepr252`.`keeps` WHERE id = 234);
